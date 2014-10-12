@@ -1,0 +1,17 @@
+# Mod_Autoindex
+<IfModule mod_autoindex.c>
+  # Запрещаем просмотр содержимого папок
+  Options -Indexes
+</IfModule>
+
+# Mod_Rewrite
+<IfModule mod_rewrite.c>
+  Options +FollowSymlinks
+  # Включаем mod_rewrite
+  RewriteEngine On
+  IndexIgnore */*
+  # Перенаправляем administrator на входной скрипт админки
+  RewriteRule ^admin/(.*)?$ /backend/web/$1 [L,PT]
+  # Перенаправляем все запросы на входной скрипт
+  RewriteRule ^([^/].*)?$ /frontend/web/$1
+</IfModule>
