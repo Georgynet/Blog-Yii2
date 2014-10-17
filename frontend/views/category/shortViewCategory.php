@@ -8,4 +8,4 @@
 
 /* @var $model common\models\Category */
 ?>
-<li><?= $model->title ?></li>
+<li><?= \yii\helpers\Html::a($model->title, ['category/index', 'id' => $model->id])?></li>

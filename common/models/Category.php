@@ -6,6 +6,7 @@ use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\web\NotFoundHttpException;
 
 /**
  * Модель категорий.
@@ -47,11 +48,21 @@ class Category extends ActiveRecord
     }
 
     /**
+     * Возвращает список постов принадлежащих категории.
+     * @param int $id идентификатор категории
      * @return ActiveQuery
      */
-    public function getPosts()
+    public function getPosts($id)
     {
-        return $this->hasMany(Post::className(), ['category_id' => 'id']);
+        $id = intval($id);
+
+        return new ActiveDataProvider([
+            'query' => $this->hasMany(Post::className(), ['category_id' => 'id'])
+            ->where([
+                'category_id' => $id,
+                'publish_status' => Post::STATUS_PUBLISH
+            ])
+        ]);
     }
 
     /**
@@ -63,5 +74,20 @@ class Category extends ActiveRecord
         return new ActiveDataProvider([
             'query' => Category::find()
         ]);
+    }
+
+    /**
+     * Возвращает модель категории.
+     * @param int $id идентификатор категории
+     * @throws NotFoundHttpException в случае, когда категория не найдена
+     * @return Post
+     */
+    public function getCategory($id)
+    {
+        if (($model = Category::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested post does not exist.');
+        }
     }
 }

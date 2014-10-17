@@ -26,12 +26,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
     <h1>Категории</h1>
-
+    <ul>
     <?php
     foreach ($categories->models as $category) {
-        echo $this->render('shortViewCategory', [
+        echo $this->render('//category/shortViewCategory', [
             'model' => $category
         ]);
     }
     ?>
+    </ul>
 </div>

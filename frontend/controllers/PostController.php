@@ -9,7 +9,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 
 /**
- * Вывод списка "Постов".
+ * Контролеры "Постов".
  */
 class PostController extends Controller
 {
