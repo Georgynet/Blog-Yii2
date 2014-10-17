@@ -3,8 +3,9 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-/* @var $model common\models\Post */
+/* @var $posts yii\data\ActiveDataProvider */
+/* @var $categories yii\data\ActiveDataProvider */
+/* @var $post common\models\Post */
 
 $this->title = 'Посты';
 $this->params['breadcrumbs'][] = $this->title;
@@ -14,9 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php
-    foreach ($dataProvider->models as $model) {
+    foreach ($posts->models as $post) {
         echo $this->render('shortView', [
-            'model' => $model
+            'model' => $post
         ]);
     }
     ?>
@@ -25,4 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
     <h1>Категории</h1>
+
+    <?php
+    foreach ($categories->models as $category) {
+        echo $this->render('shortViewCategory', [
+            'model' => $category
+        ]);
+    }
+    ?>
 </div>

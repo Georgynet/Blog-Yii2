@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Category;
 use Yii;
 use common\models\Post;
 use yii\web\Controller;
@@ -31,9 +32,11 @@ class PostController extends Controller
     public function actionIndex()
     {
         $post = new Post();
+        $category = new Category();
 
         return $this->render('index', [
-            'dataProvider' => $post->getPublishedPosts(),
+            'posts' => $post->getPublishedPosts(),
+            'categories' => $category->getCategories()
         ]);
     }
 
