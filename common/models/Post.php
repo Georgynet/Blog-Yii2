@@ -98,7 +98,7 @@ class Post extends ActiveRecord
     {
         return new ActiveDataProvider([
             'query' => Post::find()
-                ->where(['publish_status' => 'publish'])
+                ->where(['publish_status' => self::STATUS_PUBLISH])
         ]);
     }
 

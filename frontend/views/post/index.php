@@ -9,7 +9,7 @@ use yii\helpers\Html;
 $this->title = 'Посты';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="post-index">
+<div class="col-sm-8 post-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -21,4 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
     }
     ?>
 
+</div>
+
+<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+    <h1>Категории</h1>
 </div>

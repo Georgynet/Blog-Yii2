@@ -14,7 +14,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <h1><?= $model->title ?></h1>
-<p>Автор: <?= $model->author->username ?> Дата публикации: <?= $model->publish_date ?> Категория: <?= $model->category->title ?></p>
+
+<div class="meta">
+    <p>Автор: <?= $model->author->username ?> Дата публикации: <?= $model->publish_date ?> Категория: <?= $model->category->title ?></p>
+</div>
 
 <div>
     <?= $model->content ?>

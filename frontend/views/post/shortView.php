@@ -12,7 +12,11 @@ use yii\helpers\Html;
 
 <h1><?= $model->title ?></h1>
 
-<div>
+<div class="meta">
+    <p>Автор: <?= $model->author->username ?> Дата публикации: <?= $model->publish_date ?> Категория: <?= $model->category->title ?></p>
+</div>
+
+<div class="content">
     <?= $model->anons ?>
 </div>
 

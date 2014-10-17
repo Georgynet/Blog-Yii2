@@ -47,6 +47,10 @@ AppAsset::register($this);
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ];
+                $menuItems[] = [
+                    'label' => 'Admin',
+                    'url' => ['/admin/site']
+                ];
             }
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
