@@ -13,7 +13,10 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'request' => [
-            'baseUrl' => ''
+            'baseUrl' => '',
+            'enableCookieValidation' => true,
+            'enableCsrfValidation' => true,
+            'cookieValidationKey' => '45ed697dtg8uhrg9eheg00j09',
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
