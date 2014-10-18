@@ -18,8 +18,7 @@ class CategoryController extends Controller
 {
     public function actionIndex($id)
     {
-        echo '1';
-        $category = new Category();
+        $category = Category::findOne(['id' => $id]);
 
         return $this->render('index', [
             'category' => $category->getCategory($id),
