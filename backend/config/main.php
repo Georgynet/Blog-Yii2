@@ -14,7 +14,10 @@ return [
     'modules' => [],
     'components' => [
         'request' => [
-            'baseUrl' => '/admin' // данный адрес соответсвует с тем адресом который мы задали в .htaccess из общего рута нашего приложения.
+            'baseUrl' => '/admin', // данный адрес соответсвует с тем адресом который мы задали в .htaccess из общего рута нашего приложения.
+            'enableCookieValidation' => true,
+            'enableCsrfValidation' => true,
+            'cookieValidationKey' => '45ed697dtg8uhrg9eheg00j09',
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
