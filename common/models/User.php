@@ -52,6 +52,11 @@ class User extends ActiveRecord implements IdentityInterface
      public function rules()
      {
          return [
+             [['username', 'email'], 'required'],
+             [['new_password'], 'required', 'on' => 'createUser'],
+             [['email'], 'email'],
+             [['username', 'new_password'], 'string'],
+
              ['status', 'default', 'value' => self::STATUS_ACTIVE],
              ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
 
@@ -176,5 +181,25 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    /**
+     * Возвращает пустое значение поля для формы редактирования пользователя.
+     * @return null
+     */
+    public function getNew_Password()
+    {
+        return null;
+    }
+
+    /**
+     * Устанавливает новый пароль для пользователя.
+     * @param string $newPassword
+     */
+    public function setNew_password($newPassword)
+    {
+        if (strlen($newPassword) !== 0) {
+            $this->setPassword($newPassword);
+        }
     }
 }
