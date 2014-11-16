@@ -22,3 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div>
     <?= $model->content ?>
 </div>
+
+<div class="tags">
+    Тэги: <?php foreach($model->getTagPost()->all() as $post) : ?>
+        <?= $post->getTag()->one()->title ?>
+    <?php endforeach; ?>
+</div>
