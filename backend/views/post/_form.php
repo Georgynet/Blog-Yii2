@@ -10,6 +10,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $authors yii\db\ActiveRecord[] */
 /* @var $category yii\db\ActiveRecord[] */
+/* @var $tags yii\db\ActiveRecord[] */
 ?>
 
 <div class="post-form">
@@ -32,6 +33,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'publish_status')->dropDownList(
         [Post::STATUS_DRAFT => 'Черновик', Post::STATUS_PUBLISH => 'Опубликован']
+    ) ?>
+
+    <?= $form->field($model, 'tags')->listBox(
+        ArrayHelper::map($tags, 'id', 'title'),
+        [
+            'multiple' => true
+        ]
     ) ?>
 
     <?= $form->field($model, 'publish_date')->textInput() ?>
