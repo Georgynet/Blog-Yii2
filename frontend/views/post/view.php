@@ -5,8 +5,10 @@
  * Date: 09.07.14
  * Time: 9:26
  */
+use common\models\TagPost;
 
 /* @var $model common\models\Post */
+/* @var TagPost $post */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Посты', 'url' => ['index']];
