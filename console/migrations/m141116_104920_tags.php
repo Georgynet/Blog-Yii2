@@ -36,6 +36,6 @@ class m141116_104920_tags extends Migration
     public function down()
     {
         $this->dropTable('{{%tags}}');
-        $this->dropTable('{{%tagPost}}');
+        $this->dropTable('{{%tag_post}}');
     }
 }
