@@ -91,6 +91,14 @@ class Post extends ActiveRecord
     }
 
     /**
+     * @return ActiveQuery
+     */
+    public function getTagPosts()
+    {
+        return $this->hasMany(TagPost::className(), ['post_id' => 'id']);
+    }
+
+    /**
      * Возвращает опубликованные посты
      * @return ActiveDataProvider
      */
