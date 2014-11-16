@@ -6,6 +6,7 @@ use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -34,6 +35,12 @@ class Post extends ActiveRecord
     const STATUS_DRAFT = 'draft';
 
     /**
+     * Список тэгов, закреплённых за постом.
+     * @var array
+     */
+    protected $tags = [];
+
+    /**
      * @inheritdoc
      */
     public static function tableName()
@@ -50,7 +57,7 @@ class Post extends ActiveRecord
             [['title'], 'required'],
             [['category_id', 'author_id'], 'integer'],
             [['anons', 'content', 'publish_status'], 'string'],
-            [['publish_date'], 'safe'],
+            [['publish_date', 'tags'], 'safe'],
             [['title'], 'string', 'max' => 255]
         ];
     }
@@ -66,6 +73,7 @@ class Post extends ActiveRecord
             'anons' => 'Анонс',
             'content' => 'Контент',
             'category' => 'Категория',
+            'tags' => 'Тэги',
             'category_id' => 'Категория',
             'author' => 'Автор',
             'author_id' => 'Автор',
@@ -88,6 +96,35 @@ class Post extends ActiveRecord
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
+    }
+
+    /**
+     * Устанавлиает тэги поста.
+     * @param $tagsId
+     */
+    public function setTags($tagsId)
+    {
+        $this->tags = (array) $tagsId;
+    }
+
+    /**
+     * Возвращает массив идентификаторов тэгов.
+     */
+    public function getTags()
+    {
+        return ArrayHelper::getColumn(
+            $this->getTagPost()->all(), 'tag_id'
+        );
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTagPost()
+    {
+        return $this->hasMany(
+            TagPost::className(), ['post_id' => 'id']
+        );
     }
 
     /**
@@ -118,6 +155,22 @@ class Post extends ActiveRecord
         } else {
             throw new NotFoundHttpException('The requested post does not exist.');
         }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        TagPost::deleteAll(['post_id' => $this->id]);
+        $values = [];
+        foreach ($this->tags as $id) {
+            $values[] = [$this->id, $id];
+        }
+        self::getDb()->createCommand()
+            ->batchInsert(TagPost::tableName(), ['post_id', 'tag_id'], $values)->execute();
+
+        parent::afterSave($insert, $changedAttributes);
     }
 
     /**

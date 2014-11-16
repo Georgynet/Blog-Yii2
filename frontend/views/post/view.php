@@ -5,8 +5,10 @@
  * Date: 09.07.14
  * Time: 9:26
  */
+use common\models\TagPost;
 
 /* @var $model common\models\Post */
+/* @var TagPost $post */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Посты', 'url' => ['index']];
@@ -21,4 +23,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div>
     <?= $model->content ?>
+</div>
+
+<div class="tags">
+    Тэги: <?php foreach($model->getTagPost()->all() as $post) : ?>
+        <?= $post->getTag()->one()->title ?>
+    <?php endforeach; ?>
 </div>

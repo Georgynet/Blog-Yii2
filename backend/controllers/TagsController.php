@@ -2,22 +2,18 @@
 
 namespace backend\controllers;
 
-use common\models\Category;
-use common\models\Tags;
-use common\models\User;
 use Yii;
-use common\models\Post;
+use common\models\Tags;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\Response;
 
 /**
- * CRUD операции модели "Посты".
+ * TagsController implements the CRUD actions for Tags model.
  */
-class PostController extends Controller
+class TagsController extends Controller
 {
     public function behaviors()
     {
@@ -42,13 +38,13 @@ class PostController extends Controller
     }
 
     /**
-     * Список постов.
-     * @return string
+     * Lists all Tags models.
+     * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Post::find(),
+            'query' => Tags::find(),
         ]);
 
         return $this->render('index', [
@@ -57,9 +53,9 @@ class PostController extends Controller
     }
 
     /**
-     * Просмотр поста.
-     * @param string $id идентификатор поста
-     * @return string
+     * Displays a single Tags model.
+     * @param integer $id
+     * @return mixed
      */
     public function actionView($id)
     {
@@ -69,29 +65,28 @@ class PostController extends Controller
     }
 
     /**
-     * Создание поста.
-     * @return string|Response
+     * Creates a new Tags model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Post();
+        $model = new Tags();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'category' => Category::find()->all(),
-                'tags' => Tags::find()->all(),
-                'authors' => User::find()->all()
             ]);
         }
     }
 
     /**
-     * Редактирование поста.
-     * @param string $id идентификатор редактируемого поста
-     * @return string|Response
+     * Updates an existing Tags model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
      */
     public function actionUpdate($id)
     {
@@ -102,17 +97,15 @@ class PostController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'authors' => User::find()->all(),
-                'tags' => Tags::find()->all(),
-                'category' => Category::find()->all()
             ]);
         }
     }
 
     /**
-     * Удаление поста.
-     * @param string $id идентификатор удаляемого поста
-     * @return Response
+     * Deletes an existing Tags model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
      */
     public function actionDelete($id)
     {
@@ -122,15 +115,15 @@ class PostController extends Controller
     }
 
     /**
-     * Finds the Post model based on its primary key value.
+     * Finds the Tags model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Post the loaded model
+     * @param integer $id
+     * @return Tags the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Post::findOne($id)) !== null) {
+        if (($model = Tags::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
