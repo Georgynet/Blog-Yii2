@@ -28,4 +28,4 @@ use yii\helpers\Html;
     <?php endforeach; ?>
 </div>
 
-<?= Html::a('Читать далее', ['view', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+<?= Html::a('Читать далее', ['post/view', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
