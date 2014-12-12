@@ -4,6 +4,7 @@ namespace frontend\tests\_pages;
 
 use \yii\codeception\BasePage;
 
+/** @property \TestGuy $actor */
 class SignupPage extends BasePage
 {
 
@@ -16,8 +17,8 @@ class SignupPage extends BasePage
     {
         foreach ($signupData as $field => $value) {
             $inputType = $field === 'body' ? 'textarea' : 'input';
-            $this->guy->fillField($inputType . '[name="SignupForm[' . $field . ']"]', $value);
+            $this->actor->fillField($inputType . '[name="SignupForm[' . $field . ']"]', $value);
         }
-        $this->guy->click('signup-button');
+        $this->actor->click('signup-button');
     }
 }
