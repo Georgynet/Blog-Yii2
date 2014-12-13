@@ -12,8 +12,11 @@
 		"yiisoft/yii2-bootstrap": "*",
 		"yiisoft/yii2-swiftmailer": "*"
 	},
-	"require-dev": {
-		"yiisoft/yii2-codeception": "*",
+    "require-dev": {
+        "yiisoft/yii2-codeception": "*",
+        "codeception/codeception": "*",
+        "codeception/specify": "*",
+        "codeception/verify": "*",
 		"yiisoft/yii2-debug": "*",
 		"yiisoft/yii2-gii": "*"
 	},

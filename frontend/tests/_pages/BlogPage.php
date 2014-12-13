@@ -4,7 +4,7 @@ namespace frontend\tests\_pages;
 
 use yii\codeception\BasePage;
 
-class AboutPage extends BasePage
+class BlogPage extends BasePage
 {
-    public $route = 'site/about';
+    public $route = 'post/index';
 }

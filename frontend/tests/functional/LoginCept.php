@@ -7,6 +7,7 @@ $I->wantTo('ensure login page works');
 
 $loginPage = LoginPage::openBy($I);
 
+$I->see('Login', 'h1');
 $I->amGoingTo('submit login form with no data');
 $loginPage->login('', '');
 $I->expectTo('see validations errors');
