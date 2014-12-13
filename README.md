@@ -7,5 +7,5 @@ Yii 2 Blog
 Настроить подключение к БД и запустить миграции:
 
 ```
-yii migrate
+php yii migrate
 ```
