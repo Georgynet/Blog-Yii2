@@ -163,12 +163,15 @@ class Post extends ActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
         TagPost::deleteAll(['post_id' => $this->id]);
-        $values = [];
-        foreach ($this->tags as $id) {
-            $values[] = [$this->id, $id];
+
+        if (is_array($this->tags)) {
+            $values = [];
+            foreach ($this->tags as $id) {
+                $values[] = [$this->id, $id];
+            }
+            self::getDb()->createCommand()
+                ->batchInsert(TagPost::tableName(), ['post_id', 'tag_id'], $values)->execute();
         }
-        self::getDb()->createCommand()
-            ->batchInsert(TagPost::tableName(), ['post_id', 'tag_id'], $values)->execute();
 
         parent::afterSave($insert, $changedAttributes);
     }
