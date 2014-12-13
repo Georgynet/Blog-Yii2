@@ -3,8 +3,10 @@
 namespace frontend\controllers;
 
 use common\models\Category;
+use frontend\models\CommentForm;
 use Yii;
 use common\models\Post;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 
@@ -50,6 +52,7 @@ class PostController extends Controller
         $post = new Post();
         return $this->render('view', [
             'model' => $post->getPost($id),
+            'commentForm' => new CommentForm(Url::to(['comment/add', 'id' => $id])),
         ]);
     }
 }
