@@ -109,6 +109,18 @@ class Post extends ActiveRecord
     }
 
     /**
+     * Возвращает опубликованные комментарии
+     * @return ActiveDataProvider
+     */
+    public function getPublishedComments()
+    {
+        return new ActiveDataProvider([
+            'query' => $this->getComments()
+                ->where(['publish_status' => Comment::STATUS_PUBLISH])
+        ]);
+    }
+
+    /**
      * Устанавлиает тэги поста.
      * @param $tagsId
      */
