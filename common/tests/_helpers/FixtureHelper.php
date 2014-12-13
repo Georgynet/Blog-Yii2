@@ -54,7 +54,7 @@ class FixtureHelper extends Module
             'user' => [
                 'class' =>  UserFixture::className(),
                 'dataFile' => '@common/tests/fixtures/data/init_login.php',
-            ],
+            ]
         ];
     }
 }
