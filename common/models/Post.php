@@ -20,8 +20,10 @@ use yii\web\NotFoundHttpException;
  * @property string $author_id автор
  * @property string $publish_status статус публикации
  * @property string $publish_date дата публикации
+ *
  * @property User $author
  * @property Category $category
+ * @property Comment[] $comments
  */
 class Post extends ActiveRecord
 {
@@ -54,8 +56,8 @@ class Post extends ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
-            [['category_id', 'author_id'], 'integer'],
+            [['title', 'anons', 'content'], 'required'],
+            [['anons', 'category_id', 'author_id'], 'integer'],
             [['anons', 'content', 'publish_status'], 'string'],
             [['publish_date', 'tags'], 'safe'],
             [['title'], 'string', 'max' => 255]
@@ -96,6 +98,14 @@ class Post extends ActiveRecord
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getComments()
+    {
+        return $this->hasMany(Comment::className(), ['post_id' => 'id']);
     }
 
     /**

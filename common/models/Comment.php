@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\web\NotFoundHttpException;
 
 /**
  * Модель комментариев.
@@ -82,5 +83,32 @@ class Comment extends ActiveRecord
     public function getAuthor()
     {
         return $this->hasOne(User::className(), ['id' => 'author_id']);
+    }
+
+    /**
+     * Возвращает комментарий.
+     * @param int $id идентификатор комментария
+     * @throws NotFoundHttpException
+     * @return Comment
+     */
+    public function getComment($id)
+    {
+        if (
+            ($model = Comment::findOne($id)) !== null &&
+            $model->isPublished()
+        ) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested post does not exist.');
+        }
+    }
+
+    /**
+     * Опубликован ли комментарий.
+     * @return bool
+     */
+    protected function isPublished()
+    {
+        return $this->publish_status === self::STATUS_PUBLISH;
     }
 }
