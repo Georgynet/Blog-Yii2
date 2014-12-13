@@ -4,6 +4,7 @@ namespace frontend\tests\_pages;
 
 use yii\codeception\BasePage;
 
+/** @property \TestGuy $actor */
 class ContactPage extends BasePage
 {
     public $route = 'site/contact';
@@ -15,8 +16,8 @@ class ContactPage extends BasePage
     {
         foreach ($contactData as $field => $value) {
             $inputType = $field === 'body' ? 'textarea' : 'input';
-            $this->guy->fillField($inputType . '[name="ContactForm[' . $field . ']"]', $value);
+            $this->actor->fillField($inputType . '[name="ContactForm[' . $field . ']"]', $value);
         }
-        $this->guy->click('contact-button');
+        $this->actor->click('contact-button');
     }
 }
