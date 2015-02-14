@@ -79,6 +79,7 @@ class PostController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $model->author_id = Yii::$app->user->id;
             return $this->render('create', [
                 'model' => $model,
                 'category' => Category::find()->all(),
