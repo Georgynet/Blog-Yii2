@@ -1,0 +1,94 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: georgy
+ * Date: 14.12.14
+ * Time: 3:32
+ */
+
+namespace common\tests\unit\models;
+
+use Codeception\Specify;
+use common\models\Comment;
+use common\models\Post;
+use common\tests\fixtures\CategoryFixture;
+use common\tests\fixtures\PostFixture;
+use common\tests\fixtures\UserFixture;
+use common\tests\unit\DbTestCase;
+
+class PostTest extends DbTestCase
+{
+    use Specify;
+
+    /**
+     * @var Post $postModel
+     */
+    private $postModel;
+
+    public function setUp()
+    {
+        $this->postModel = new Post();
+
+        parent::setUp();
+    }
+
+    public function testGetAuthor()
+    {
+        $post = $this->postModel->findOne(2);
+        $this->assertInstanceOf('common\models\User', $post->getAuthor()->one());
+    }
+
+    public function testGetCategory()
+    {
+        $post = $this->postModel->findOne(2);
+        $this->assertInstanceOf('common\models\Category', $post->getCategory()->one());
+    }
+
+    public function testGetComments()
+    {
+        $post = $this->postModel->findOne(2);
+        foreach ($post->getComments()->all() as $comment) {
+            $this->assertInstanceOf('common\models\Comment', $comment);
+        }
+    }
+
+    public function testGetPublishedComments()
+    {
+        $post = $this->postModel->findOne(2);
+        /** @var Comment $comment */
+        foreach ($post->getPublishedComments()->models as $comment) {
+            $this->assertEquals(Comment::STATUS_PUBLISH, $comment->publish_status);
+        }
+    }
+
+    public function testSetTags()
+    {
+        $sourceTags = ['php', 'yii'];
+
+        $post = $this->postModel->findOne(2);
+        //$post->setTags($sourceTags);
+
+        $this->assertInstanceOf('common\models\Post', $post);
+        $this->assertTrue($post->save(false));
+
+        //$this->assertEquals($sourceTags, $post->getTags());
+    }
+
+    public function fixtures()
+    {
+        return [
+            'post' => [
+                'class' => PostFixture::className(),
+                'dataFile' => '@common/tests/unit/fixtures/data/models/post.php'
+            ],
+            'category' => [
+                'class' => CategoryFixture::className(),
+                'dataFile' => '@common/tests/unit/fixtures/data/models/category.php'
+            ],
+            'user' => [
+                'class' => UserFixture::className(),
+                'dataFile' => '@common/tests/unit/fixtures/data/models/user.php'
+            ],
+        ];
+    }
+}

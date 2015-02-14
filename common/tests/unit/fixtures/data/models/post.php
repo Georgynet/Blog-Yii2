@@ -15,7 +15,10 @@ return [
     ],
     [
         'title' => 'Post 1',
+        'anons' => 'anons 1',
         'content' => 'Content 1',
-        'publish_status' => Post::STATUS_PUBLISH
+        'publish_status' => Post::STATUS_PUBLISH,
+        'category_id' => 1,
+        'author_id' => 1
     ]
 ];

@@ -22,5 +22,19 @@ return [
         'publish_status' => Comment::STATUS_PUBLISH,
         'post_id' => 2,
         'author_id' => 1,
+    ],
+    [
+        'title' => 'Comment 2',
+        'content' => 'Content 2',
+        'publish_status' => Comment::STATUS_PUBLISH,
+        'post_id' => 2,
+        'author_id' => 1,
+    ],
+    [
+        'title' => 'Comment 3',
+        'content' => 'Content 3',
+        'publish_status' => Comment::STATUS_MODERATE,
+        'post_id' => 2,
+        'author_id' => 1,
     ]
 ];
