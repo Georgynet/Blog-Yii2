@@ -9,7 +9,7 @@ use common\models\TagPost;
 use yii\helpers\Html;
 
 /* @var $model common\models\Post */
-/* @var TagPost $post */
+/* @var TagPost $postTag */
 ?>
 
 <h1><?= $model->title ?></h1>
@@ -23,9 +23,12 @@ use yii\helpers\Html;
 </div>
 
 <div class="tags">
-    Тэги: <?php foreach($model->getTagPost()->all() as $post) : ?>
-        <?= $post->getTag()->one()->title ?>
-    <?php endforeach; ?>
+    <?php
+    $tags = [];
+    foreach($model->getTagPost()->all() as $postTag) {
+        $tags[] = $postTag->getTag()->one()->title;
+    } ?>
+    Тэги: <?=implode(', ', $tags)?>
 </div>
 
 <?= Html::a('Читать далее', ['post/view', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
