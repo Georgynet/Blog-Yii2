@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
     $form = ActiveForm::begin(['action' => $model->action]);
     ?>
 
-    <?= $form->field($model, 'pid')->hiddenInput() ?>
+    <?= $form->field($model, 'pid')->hiddenInput()->label(false) ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
     <?= $form->field($model, 'content')->textInput(['maxlength' => 255]) ?>
 

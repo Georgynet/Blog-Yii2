@@ -140,6 +140,7 @@ class Post extends ActiveRecord
     }
 
     /**
+     * Возвращает тэги поста.
      * @return ActiveQuery
      */
     public function getTagPost()

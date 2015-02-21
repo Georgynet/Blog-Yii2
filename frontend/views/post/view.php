@@ -6,6 +6,7 @@
  * Time: 9:26
  */
 use common\models\Comment;
+use common\models\TagPost;
 
 /* @var $model common\models\Post */
 /* @var \frontend\models\CommentForm $commentForm \;
@@ -27,8 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <div class="tags">
-    Тэги: <?php foreach($model->getTagPost()->all() as $post) : ?>
-        <?= $post->getTag()->one()->title ?>
+    Тэги: <?php
+    /** @var TagPost $postTag */
+    foreach($model->getTagPost()->all() as $postTag) : ?>
+        <?= $postTag->getTag()->one()->title ?>
     <?php endforeach; ?>
 </div>
 
@@ -36,9 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php /** @var Comment $comment */ ?>
     <?php foreach($model->getPublishedComments()->models as $comment) : ?>
         <div class="comment">
-            <h3><?= $comment->title ?></h3>
+            <h3><?= htmlspecialchars($comment->title) ?></h3>
             <div class="meta">Автор: <strong><?=isset($comment->author) ? $comment->author->username : null?></strong></div>
-            <div><?= $comment->content ?></div>
+            <div><?= htmlspecialchars($comment->content) ?></div>
         </div>
     <?php endforeach; ?>
 </div>
