@@ -62,6 +62,33 @@ class PostTest extends DbTestCase
         }
     }
 
+    public function testGetPublishedPostSuccess()
+    {
+        $post = $this->postModel->getPost(2);
+        $this->assertInstanceOf('common\models\Post', $post);
+    }
+
+    /**
+     * @expectedException \yii\web\NotFoundHttpException
+     */
+    public function testGetPublishedPostFail()
+    {
+        $this->postModel->getPost(1);
+    }
+
+    public function testGetPublishedPosts()
+    {
+        $posts = $this->postModel->getPublishedPosts();
+
+        $this->assertInstanceOf('yii\data\ActiveDataProvider', $posts);
+
+        $count = $this->postModel->findAll([
+            'publish_status' => Post::STATUS_PUBLISH
+        ]);
+
+        $this->assertEquals($posts->count, count($count));
+    }
+
     public function testSetTags()
     {
         $sourceTags = [1, 3];
