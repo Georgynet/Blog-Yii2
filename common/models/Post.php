@@ -20,8 +20,10 @@ use yii\web\NotFoundHttpException;
  * @property string $author_id автор
  * @property string $publish_status статус публикации
  * @property string $publish_date дата публикации
+ *
  * @property User $author
  * @property Category $category
+ * @property Comment[] $comments
  */
 class Post extends ActiveRecord
 {
@@ -99,6 +101,26 @@ class Post extends ActiveRecord
     }
 
     /**
+     * @return ActiveQuery
+     */
+    public function getComments()
+    {
+        return $this->hasMany(Comment::className(), ['post_id' => 'id']);
+    }
+
+    /**
+     * Возвращает опубликованные комментарии
+     * @return ActiveDataProvider
+     */
+    public function getPublishedComments()
+    {
+        return new ActiveDataProvider([
+            'query' => $this->getComments()
+                ->where(['publish_status' => Comment::STATUS_PUBLISH])
+        ]);
+    }
+
+    /**
      * Устанавлиает тэги поста.
      * @param $tagsId
      */
@@ -118,6 +140,7 @@ class Post extends ActiveRecord
     }
 
     /**
+     * Возвращает тэги поста.
      * @return ActiveQuery
      */
     public function getTagPost()
@@ -165,7 +188,7 @@ class Post extends ActiveRecord
     {
         TagPost::deleteAll(['post_id' => $this->id]);
 
-        if (is_array($this->tags)) {
+        if (is_array($this->tags) && !empty($this->tags)) {
             $values = [];
             foreach ($this->tags as $id) {
                 $values[] = [$this->id, $id];

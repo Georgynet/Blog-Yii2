@@ -53,10 +53,11 @@ class Category extends ActiveRecord
     public function getPosts()
     {
         return new ActiveDataProvider([
-            'query' => $this->hasMany(Post::className(), ['category_id' => 'id'])
-            ->where([
-                'publish_status' => Post::STATUS_PUBLISH
-            ])
+            'query' => Post::find()
+                ->where([
+                    'category_id' => $this->id,
+                    'publish_status' => Post::STATUS_PUBLISH
+                ])
         ]);
     }
 
