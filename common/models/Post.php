@@ -188,7 +188,7 @@ class Post extends ActiveRecord
     {
         TagPost::deleteAll(['post_id' => $this->id]);
 
-        if (is_array($this->tags)) {
+        if (is_array($this->tags) && !empty($this->tags)) {
             $values = [];
             foreach ($this->tags as $id) {
                 $values[] = [$this->id, $id];
