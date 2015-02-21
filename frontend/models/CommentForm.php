@@ -51,6 +51,14 @@ class CommentForm extends Model
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'title' => 'Заголовок',
+            'content' => 'Комментарий'
+        ];
+    }
+
     /**
      * Сохраняет комментарий.
      * @param Comment $comment модель комментария

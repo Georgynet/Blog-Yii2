@@ -28,11 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <div class="tags">
-    Тэги: <?php
-    /** @var TagPost $postTag */
-    foreach($model->getTagPost()->all() as $postTag) : ?>
-        <?= $postTag->getTag()->one()->title ?>
-    <?php endforeach; ?>
+    <?php
+    $tags = [];
+    foreach($model->getTagPost()->all() as $postTag) {
+        $tags[] = $postTag->getTag()->one()->title;
+    } ?>
+    Тэги: <?=implode(', ', $tags)?>
 </div>
 
 <div class="comments">

@@ -9,9 +9,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $form yii\widgets\ActiveForm */
-/* @var $model \frontend\models\CommentForm */
+/* @var yii\web\View $this */
+/* @var yii\widgets\ActiveForm $form */
+/* @var \frontend\models\CommentForm $model */
 ?>
 
 <div class="comment-form">
@@ -22,10 +22,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'pid')->hiddenInput()->label(false) ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
-    <?= $form->field($model, 'content')->textInput(['maxlength' => 255]) ?>
+    <?= $form->field($model, 'content')->textarea(['maxlength' => 255]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Create', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Опубликовать', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
