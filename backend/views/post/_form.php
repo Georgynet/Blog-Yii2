@@ -35,7 +35,7 @@ use yii\widgets\ActiveForm;
         [Post::STATUS_DRAFT => 'Черновик', Post::STATUS_PUBLISH => 'Опубликован']
     ) ?>
 
-    <?= $form->field($model, 'tags')->listBox(
+    <?= $form->field($model, 'tags')->checkboxList(
         ArrayHelper::map($tags, 'id', 'title'),
         [
             'multiple' => true
