@@ -6,10 +6,8 @@ use yii\helpers\Html;
 /* @var $posts yii\data\ActiveDataProvider */
 /* @var $categories yii\data\ActiveDataProvider */
 /* @var $post common\models\Post */
-
-$this->title = 'Посты';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="col-sm-8 post-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
