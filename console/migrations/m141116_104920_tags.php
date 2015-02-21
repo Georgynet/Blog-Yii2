@@ -35,6 +35,9 @@ class m141116_104920_tags extends Migration
 
     public function down()
     {
+        $this->dropForeignKey('FK_tag_post', '{{%tag_post}}');
+        $this->dropForeignKey('FK_post_tag', '{{%tag_post}}');
+
         $this->dropTable('{{%tags}}');
         $this->dropTable('{{%tag_post}}');
     }
