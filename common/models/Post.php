@@ -56,8 +56,8 @@ class Post extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'anons', 'content'], 'required'],
-            [['anons', 'category_id', 'author_id'], 'integer'],
+            [['title'], 'required'],
+            [['category_id', 'author_id'], 'integer'],
             [['anons', 'content', 'publish_status'], 'string'],
             [['publish_date', 'tags'], 'safe'],
             [['title'], 'string', 'max' => 255]
