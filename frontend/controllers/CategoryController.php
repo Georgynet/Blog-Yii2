@@ -10,6 +10,7 @@ namespace frontend\controllers;
 
 use common\models\Category;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 /**
  * Контроллеры "Категорий".
@@ -18,12 +19,13 @@ class CategoryController extends Controller
 {
     public function actionIndex($id)
     {
-        $category = Category::findOne(['id' => $id]);
+        $categoryModel = new Category();
+        $category = $categoryModel->getCategory($id);
 
         return $this->render('index', [
-            'category' => $category->getCategory($id),
-            'posts' => $category->getPosts($id),
-            'categories' => $category->getCategories()
+            'category' => $categoryModel->getCategory($id),
+            'posts' => $category->getPosts(),
+            'categories' => $categoryModel->getCategories()
         ]);
     }
 } 
