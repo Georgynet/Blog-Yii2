@@ -36,10 +36,7 @@ use yii\widgets\ActiveForm;
     ) ?>
 
     <?= $form->field($model, 'tags')->checkboxList(
-        ArrayHelper::map($tags, 'id', 'title'),
-        [
-            'multiple' => true
-        ]
+        ArrayHelper::map($tags, 'id', 'title')
     ) ?>
 
     <?= $form->field($model, 'publish_date')->textInput() ?>
