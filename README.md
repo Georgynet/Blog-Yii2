@@ -7,7 +7,7 @@ Yii 2 Blog
 
 После запустить ```composer``` в консоли:
 
-```composer install / composer update```
+```composer install``` / ```composer update```
 
 Настроить подключение к БД и запустить миграции:
 
