@@ -15,7 +15,7 @@ use yii\helpers\Html;
 <h1><?= $model->title ?></h1>
 
 <div class="meta">
-    <p>Автор: <?= $model->author->username ?> Дата публикации: <?= $model->publish_date ?> Категория: <?= $model->category->title ?></p>
+    <p>Автор: <?= $model->author->username ?> Дата публикации: <?= $model->publish_date ?> Категория: <?= Html::a($model->category->title, ['category/view', 'id' => $model->category->id]) ?></p>
 </div>
 
 <div class="content">
@@ -26,9 +26,11 @@ use yii\helpers\Html;
     <?php
     $tags = [];
     foreach($model->getTagPost()->all() as $postTag) {
-        $tags[] = $postTag->getTag()->one()->title;
+        $tag = $postTag->getTag()->one();
+        $tags[] = Html::a($tag->title, ['tag/view', 'id' => $tag->id]);
     } ?>
-    Тэги: <?=implode(', ', $tags)?>
+
+    Тэги: <?= implode($tags, ', ') ?>
 </div>
 
 <?= Html::a('Читать далее', ['post/view', 'id' => $model->id], ['class' => 'btn btn-success']) ?>

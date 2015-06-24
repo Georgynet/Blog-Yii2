@@ -6,9 +6,13 @@
  * Time: 18:01
  */
 
+/** @var $tag common\models\Tags */
+/** @var $posts yii\db\ActiveQuery */
+/** @var $categories yii\data\ActiveDataProvider */
+
 use yii\helpers\Html;
 
-$this->title = $category->title;
+$this->title = $tag->title;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -30,9 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1>Категории</h1>
     <ul>
         <?php
-        foreach ($categories->models as $category) {
+        foreach ($categories->models as $tagItem) {
             echo $this->render('//category/shortViewCategory', [
-                'model' => $category
+                'model' => $tagItem
             ]);
         }
         ?>

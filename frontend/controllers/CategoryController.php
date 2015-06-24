@@ -16,7 +16,7 @@ use yii\web\Controller;
  */
 class CategoryController extends Controller
 {
-    public function actionIndex($id)
+    public function actionView($id)
     {
         $categoryModel = new Category();
         $category = $categoryModel->getCategory($id);
