@@ -25,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
             'anons:ntext',
-            'content:ntext',
             [
                 'label' => 'Категория',
                 'value' => 'category.title'

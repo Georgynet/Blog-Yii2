@@ -76,7 +76,7 @@ class Category extends ActiveRecord
      * Возвращает модель категории.
      * @param int $id идентификатор категории
      * @throws NotFoundHttpException в случае, когда категория не найдена
-     * @return Post
+     * @return Category
      */
     public function getCategory($id)
     {
