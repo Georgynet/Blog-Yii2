@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\web\NotFoundHttpException;
 
 /**
  * Модель тэгов.
@@ -47,10 +48,26 @@ class Tags extends ActiveRecord
     }
 
     /**
+     * Возвращает посты, относящиеся к тегу.
      * @return ActiveQuery
      */
     public function getTagPosts()
     {
         return $this->hasMany(TagPost::className(), ['tag_id' => 'id']);
+    }
+
+    /**
+     * Возвращает модель тэга.
+     * @param int $id
+     * @return Tags
+     * @throws NotFoundHttpException
+     */
+    public function getTag($id)
+    {
+        if (($model = Tags::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested post does not exist.');
+        }
     }
 }

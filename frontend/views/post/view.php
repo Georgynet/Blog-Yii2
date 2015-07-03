@@ -7,6 +7,7 @@
  */
 use common\models\Comment;
 use common\models\TagPost;
+use yii\helpers\Html;
 
 /* @var $model common\models\Post */
 /* @var \frontend\models\CommentForm $commentForm \;
@@ -20,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <h1><?= $model->title ?></h1>
 
 <div class="meta">
-    <p>Автор: <?= $model->author->username ?> Дата публикации: <?= $model->publish_date ?> Категория: <?= $model->category->title ?></p>
+    <p>Автор: <?= $model->author->username ?> Дата публикации: <?= $model->publish_date ?> Категория: <?= Html::a($model->category->title, ['category/view', 'id' => $model->category->id]) ?></p>
 </div>
 
 <div>
@@ -31,9 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
     $tags = [];
     foreach($model->getTagPost()->all() as $postTag) {
-        $tags[] = $postTag->getTag()->one()->title;
+        $tag = $postTag->getTag()->one();
+        $tags[] = Html::a($tag->title, ['tag/view', 'id' => $tag->id]);
     } ?>
-    Тэги: <?=implode(', ', $tags)?>
+
+    Тэги: <?= implode($tags, ', ') ?>
 </div>
 
 <div class="comments">
