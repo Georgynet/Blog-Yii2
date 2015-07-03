@@ -8,19 +8,19 @@ Yii 2 Blog
 1. Склонировать репозиторий.
 
 2. После запустить ```composer``` в консоли:
-```composer install``` / ```composer update```
+  ```composer install``` / ```composer update```.
 
 3. Выполнить команду и следую инструкциям настроить окружение dev или prod:
-```
-php /path/to/yii-application/init
-```
+  ```
+  php /path/to/yii-application/init
+  ```
 
 4. Настроить подключение к БД в конфиге:
-```
-/common/config/main-local.php
-```
+  ```
+  /common/config/main-local.php
+  ```
 
 5. Запустить миграции:
-```
-php yii migrate
-```
+  ```
+  php yii migrate
+  ```
