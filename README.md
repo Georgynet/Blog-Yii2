@@ -1,6 +1,9 @@
 Yii 2 Blog
 ===================================
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Georgynet/Blog-Yii2/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Georgynet/Blog-Yii2/?branch=master)
+[![Code Climate](https://codeclimate.com/github/Georgynet/Blog-Yii2/badges/gpa.svg)](https://codeclimate.com/github/Georgynet/Blog-Yii2)
+
 Блог на Yii Framework 2
 
 Для того, что бы развернуть блог необходимо:
