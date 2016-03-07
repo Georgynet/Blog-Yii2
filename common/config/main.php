@@ -5,5 +5,12 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+            'defaultRoles' => ['user', 'admin'],
+            'itemFile' => '@common/config/rbac/items.php',
+            'assignmentFile' => '@common/config/rbac/assignments.php',
+            'ruleFile' => '@common/config/rbac/rules.php'
+        ],
     ],
 ];
