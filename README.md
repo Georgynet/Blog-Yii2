@@ -32,5 +32,7 @@ Yii 2 Blog
   ```
 
 Пользователь по-умолчанию:
-Логин: demoadmin
-Пароль: demoadmin
+
+Логин: **demoadmin**
+
+Пароль: **demoadmin**
