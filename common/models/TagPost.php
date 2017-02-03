@@ -41,6 +41,7 @@ class TagPost extends ActiveRecord
     public function attributeLabels()
     {
         return [
+            'id' => 'ID',
             'tag_id' => 'Tag ID',
             'post_id' => 'Post ID',
         ];

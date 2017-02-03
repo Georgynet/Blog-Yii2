@@ -30,7 +30,7 @@ class TagController extends Controller
 
         return $this->render('view', [
             'tag' => $tag,
-            'posts' => $tag->getTagPosts(),
+            'posts' => $tag->getPublishedPosts(),
             'categories' => $categoryModel->getCategories()
         ]);
     }
