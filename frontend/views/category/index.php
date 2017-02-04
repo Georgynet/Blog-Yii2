@@ -6,6 +6,7 @@
  * Time: 2:14
  */
 use yii\helpers\Html;
+use yii\widgets\LinkPager;
 
 /* @var $this yii\web\View */
 /** @var $category \common\models\Category текущая категория */
@@ -27,6 +28,11 @@ foreach ($posts->models as $post) {
     ]);
 }
 ?>
+    <div>
+        <?= LinkPager::widget([
+            'pagination' => $posts->getPagination()
+        ]) ?>
+    </div>
 
 </div>
 
