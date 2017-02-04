@@ -69,8 +69,8 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-        <p class="pull-left">&copy; <a href="//sllite.ru" target="_blank">sllite.ru</a> <?= date('Y') ?></p>
-        <p class="pull-right"><?= Yii::powered() ?></p>
+            <p class="pull-left">&copy; <a href="https://sllite.ru" target="_blank">sllite.ru</a> <?= date('Y') ?></p>
+            <p class="pull-right"><?= Yii::powered() ?></p>
         </div>
     </footer>
 
