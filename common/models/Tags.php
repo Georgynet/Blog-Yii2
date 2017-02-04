@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\NotFoundHttpException;
@@ -58,15 +59,17 @@ class Tags extends ActiveRecord
 
     /**
      * Возвращает опубликованные посты, связанные с тэгом.
-     * @return ActiveQuery
+     * @return ActiveDataProvider
      */
     public function getPublishedPosts()
     {
-        return $this->getTagPosts()
-            ->alias('tp')
-            ->leftJoin(Post::tableName() . ' p', 'p.id = tp.post_id')
-            ->where(['publish_status' => Post::STATUS_PUBLISH])
-            ->orderBy(['publish_date' => SORT_DESC]);
+        return new ActiveDataProvider([
+            'query' => $this->getTagPosts()
+                ->alias('tp')
+                ->leftJoin(Post::tableName() . ' p', 'p.id = tp.post_id')
+                ->where(['publish_status' => Post::STATUS_PUBLISH])
+                ->orderBy(['publish_date' => SORT_DESC])
+        ]);
     }
 
     /**

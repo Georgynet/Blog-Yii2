@@ -10,6 +10,7 @@ namespace frontend\controllers;
 
 use common\models\Category;
 use common\models\Tags;
+use Yii;
 use yii\web\Controller;
 
 /**
@@ -27,10 +28,15 @@ class TagController extends Controller
         $tagModel = new Tags();
         $tag = $tagModel->getTag($id);
         $categoryModel = new Category();
+        
+        $posts = $tag->getPublishedPosts();
+        $posts->setPagination([
+            'pageSize' => Yii::$app->params['pageSize']
+        ]);
 
         return $this->render('view', [
             'tag' => $tag,
-            'posts' => $tag->getPublishedPosts(),
+            'posts' => $posts,
             'categories' => $categoryModel->getCategories()
         ]);
     }
