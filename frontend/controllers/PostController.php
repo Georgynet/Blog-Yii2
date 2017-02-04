@@ -36,8 +36,13 @@ class PostController extends Controller
         $post = new Post();
         $category = new Category();
 
+        $posts = $post->getPublishedPosts();
+        $posts->setPagination([
+            'pageSize' => Yii::$app->params['pageSize']
+        ]);
+
         return $this->render('index', [
-            'posts' => $post->getPublishedPosts(),
+            'posts' => $posts,
             'categories' => $category->getCategories()
         ]);
     }

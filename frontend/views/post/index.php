@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\LinkPager;
 
 /* @var $this yii\web\View */
 /* @var $posts yii\data\ActiveDataProvider */
@@ -20,6 +21,11 @@ use yii\helpers\Html;
     }
     ?>
 
+    <div>
+        <?= LinkPager::widget([
+            'pagination' => $posts->getPagination()
+        ]) ?>
+    </div>
 </div>
 
 <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
