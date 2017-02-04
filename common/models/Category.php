@@ -68,7 +68,8 @@ class Category extends ActiveRecord
     public function getCategories()
     {
         return new ActiveDataProvider([
-            'query' => Category::find()
+            'query' => Category::find(),
+            'pagination' => false
         ]);
     }
 

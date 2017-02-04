@@ -7,10 +7,12 @@
  */
 
 /** @var $tag common\models\Tags */
-/** @var $posts yii\db\ActiveQuery */
+/** @var $posts \yii\data\ActiveDataProvider */
 /** @var $categories yii\data\ActiveDataProvider */
+/** @var $postTag \common\models\TagPost */
 
 use yii\helpers\Html;
+use yii\widgets\LinkPager;
 
 $this->title = $tag->title;
 $this->params['breadcrumbs'][] = $this->title;
@@ -21,12 +23,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1>Тэг: <?= Html::encode($this->title) ?></h1>
 
     <?php
-    foreach ($posts->all() as $postTag) {
+    foreach ($posts->models as $postTag) {
         echo $this->render('//post/shortView', [
             'model' => $postTag->getPost()->one()
         ]);
     }
     ?>
+
+    <div>
+        <?= LinkPager::widget([
+            'pagination' => $posts->getPagination()
+        ]) ?>
+    </div>
 
 </div>
 

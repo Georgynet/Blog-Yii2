@@ -9,6 +9,7 @@
 namespace frontend\controllers;
 
 use common\models\Category;
+use Yii;
 use yii\web\Controller;
 
 /**
@@ -21,9 +22,14 @@ class CategoryController extends Controller
         $categoryModel = new Category();
         $category = $categoryModel->getCategory($id);
 
+        $posts = $category->getPosts();
+        $posts->setPagination([
+            'pageSize' => Yii::$app->params['pageSize']
+        ]);
+
         return $this->render('index', [
             'category' => $category,
-            'posts' => $category->getPosts(),
+            'posts' => $posts,
             'categories' => $categoryModel->getCategories()
         ]);
     }
