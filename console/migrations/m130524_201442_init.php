@@ -1,6 +1,6 @@
 <?php
 
-use yii\db\Schema;
+use common\models\User;
 
 class m130524_201442_init extends \yii\db\Migration
 {
@@ -11,23 +11,23 @@ class m130524_201442_init extends \yii\db\Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%user}}', [
-            'id' => Schema::TYPE_PK,
-            'username' => Schema::TYPE_STRING . ' NOT NULL',
-            'auth_key' => Schema::TYPE_STRING . '(32) NOT NULL',
-            'password_hash' => Schema::TYPE_STRING . ' NOT NULL',
-            'password_reset_token' => Schema::TYPE_STRING,
-            'email' => Schema::TYPE_STRING . ' NOT NULL',
-            'role' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 10',
+        $this->createTable(User::tableName(), [
+            'id' => $this->primaryKey(),
+            'username' => $this->string()->notNull(),
+            'auth_key' => $this->string(32)->notNull(),
+            'password_hash' => $this->string()->notNull(),
+            'password_reset_token' => $this->string(),
+            'email' => $this->string()->notNull(),
+            'role' => $this->smallInteger()->notNull()->defaultValue(10),
 
-            'status' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 10',
-            'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'status' => $this->smallInteger()->notNull()->defaultValue(10),
+            'created_at' => $this->integer()->notNull(),
+            'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);
     }
 
     public function down()
     {
-        $this->dropTable('{{%user}}');
+        $this->dropTable(User::tableName());
     }
 }
