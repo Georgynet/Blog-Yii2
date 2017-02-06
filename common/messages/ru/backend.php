@@ -17,11 +17,9 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Comments' => 'Комментарии',
-    'Create Comment' => 'Создать комментарий',
-    'Moderate' => 'На модерации',
-    'Publish' => 'Опубликован',
-    'Update Comment:' => 'Обновить комментарий:',
+    'Home' => 'Главная',
+    'Logout ({username})' => 'Выход ({username})',
+    'Site' => 'Сайт',
     'Announce' => 'Анонс',
     'Are you sure you want to delete this item?' => 'Вы действительно хотите удалить эту запись?',
     'Author' => 'Автор',
@@ -29,13 +27,17 @@ return [
     'Categories' => 'Категории',
     'Category' => 'Категория',
     'Category ID' => 'ID категории',
+    'Comments' => 'Комментарии',
     'Content' => 'Контент',
     'Create' => 'Создать',
     'Create Category' => 'Создать категорию',
+    'Create Comment' => 'Создать комментарий',
     'Delete' => 'Удалить',
     'ID' => 'ID',
+    'Moderate' => 'На модерации',
     'Pid' => 'PID',
     'Post ID' => 'ID поста',
+    'Publish' => 'Опубликован',
     'Publish date' => 'Дата публикации',
     'Publish status' => 'Статус',
     'Tag ID' => 'Тэг ID',
@@ -43,4 +45,5 @@ return [
     'Title' => 'Заголовок',
     'Update' => 'Обновить',
     'Update Category:' => 'Обновить категорию',
+    'Update Comment:' => 'Обновить комментарий:',
 ];
