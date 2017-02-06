@@ -70,17 +70,17 @@ class Post extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'title' => 'Заголовок',
-            'anons' => 'Анонс',
-            'content' => 'Контент',
-            'category' => 'Категория',
-            'tags' => 'Тэги',
-            'category_id' => 'Категория',
-            'author' => 'Автор',
-            'author_id' => 'Автор',
-            'publish_status' => 'Статус публикации',
-            'publish_date' => 'Дата публикации',
+            'id' => Yii::t('backend', 'ID'),
+            'title' => Yii::t('backend', 'Title'),
+            'anons' => Yii::t('backend', 'Announce'),
+            'content' => Yii::t('backend', 'Content'),
+            'category' => Yii::t('backend', 'Category'),
+            'tags' => Yii::t('backend', 'Tags'),
+            'category_id' => Yii::t('backend', 'Category ID'),
+            'author' => Yii::t('backend', 'Author'),
+            'author_id' => Yii::t('backend', 'Author ID'),
+            'publish_status' => Yii::t('backend', 'Publish status'),
+            'publish_date' => Yii::t('backend', 'Publish date'),
         ];
     }
 

@@ -59,13 +59,13 @@ class Comment extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'pid' => 'Pid',
-            'title' => 'Title',
-            'content' => 'Content',
-            'publish_status' => 'Publish status',
-            'post_id' => 'Post ID',
-            'author_id' => 'Author ID',
+            'id' => Yii::t('backend', 'ID'),
+            'pid' => Yii::t('backend', 'Pid'),
+            'title' => Yii::t('backend', 'Title'),
+            'content' => Yii::t('backend', 'Content'),
+            'publish_status' => Yii::t('backend', 'Publish status'),
+            'post_id' => Yii::t('backend', 'Post ID'),
+            'author_id' => Yii::t('backend', 'Author ID'),
         ];
     }
 

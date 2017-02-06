@@ -48,23 +48,40 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-      * @inheritdoc
-      */
-     public function rules()
-     {
-         return [
-             [['username', 'email'], 'required'],
-             [['new_password'], 'required', 'on' => 'createUser'],
-             [['email'], 'email'],
-             [['username', 'new_password'], 'string'],
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['username', 'email'], 'required'],
+            [['new_password'], 'required', 'on' => 'createUser'],
+            [['email'], 'email'],
+            [['username', 'new_password'], 'string'],
 
-             ['status', 'default', 'value' => self::STATUS_ACTIVE],
-             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
 
-             ['role', 'default', 'value' => self::ROLE_USER],
-             ['role', 'in', 'range' => [self::ROLE_USER]],
-         ];
-     }
+            ['role', 'default', 'value' => self::ROLE_USER],
+            ['role', 'in', 'range' => [self::ROLE_USER]],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('backend', 'ID'),
+            'username' => Yii::t('backend', 'Username'),
+            'email' => Yii::t('backend', 'Email'),
+            'role' => Yii::t('backend', 'Role'),
+            'status' => Yii::t('backend', 'Status'),
+            'new_password' => Yii::t('backend', 'New Password'),
+            'created_at' => Yii::t('backend', 'Created at'),
+            'updated_at' => Yii::t('backend', 'Updated at'),
+        ];
+    }
 
     /**
      * @inheritdoc

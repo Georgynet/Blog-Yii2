@@ -12,5 +12,17 @@ return [
             'assignmentFile' => '@common/config/rbac/assignments.php',
             'ruleFile' => '@common/config/rbac/rules.php'
         ],
+        'i18n' => [
+            'translations' => [
+                'backend' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@common/messages',
+                    'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'backend' => 'backend.php'
+                    ],
+                ],
+            ],
+        ],
     ],
 ];

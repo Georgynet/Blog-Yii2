@@ -8,10 +8,10 @@ use yii\helpers\Html;
 /* @var $tags yii\db\ActiveRecord[] */
 /* @var $category yii\db\ActiveRecord[] */
 
-$this->title = 'Редактирование поста: ' . ' ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Посты', 'url' => ['index']];
+$this->title = Yii::t('backend', 'Update Post:') . ' ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Posts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Редактирование';
+$this->params['breadcrumbs'][] = Yii::t('backend', 'Update');
 ?>
 <div class="post-update">
 
