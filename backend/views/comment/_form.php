@@ -18,14 +18,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'content')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'publish_status')->dropDownList([ 'moderate' => 'Moderate', 'publish' => 'Publish', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'publish_status')->dropDownList([ 'moderate' => Yii::t('backend', 'Moderate'), 'publish' => Yii::t('backend', 'Publish'), ], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'post_id')->textInput() ?>
 
     <?= $form->field($model, 'author_id')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
