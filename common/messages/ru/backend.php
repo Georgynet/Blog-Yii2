@@ -17,7 +17,12 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Tag ID' => 'Тэг ID',
+    'Are you sure you want to delete this item?' => 'Вы действительно хотите удалить эту запись?',
+    'Create' => 'Создать',
+    'Create Category' => 'Создать категорию',
+    'Delete' => 'Удалить',
+    'Update' => 'Обновить',
+    'Update Category:' => 'Обновить категорию',
     'Announce' => 'Анонс',
     'Author' => 'Автор',
     'Author ID' => 'ID автора',
@@ -30,6 +35,7 @@ return [
     'Post ID' => 'ID поста',
     'Publish date' => 'Дата публикации',
     'Publish status' => 'Статус',
+    'Tag ID' => 'Тэг ID',
     'Tags' => 'Тэги',
     'Title' => 'Заголовок',
 ];
