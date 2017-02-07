@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'content')->textarea(['maxlength' => 255]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Опубликовать', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('frontend', 'Publish'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

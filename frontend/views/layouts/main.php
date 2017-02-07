@@ -33,21 +33,21 @@ AppAsset::register($this);
                 ],
             ]);
             $menuItems = [
-                ['label' => 'Блог', 'url' => ['/post/index']],
-                ['label' => 'Об мне', 'url' => ['/site/about']],
-                ['label' => 'Контакты', 'url' => ['/site/contact']],
+                ['label' => Yii::t('frontend', 'Blog'), 'url' => ['/post/index']],
+                ['label' => Yii::t('frontend', 'About'), 'url' => ['/site/about']],
+                ['label' => Yii::t('frontend', 'Contact'), 'url' => ['/site/contact']],
             ];
             if (Yii::$app->user->isGuest) {
-                $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
-                $menuItems[] = ['label' => 'Вход', 'url' => ['/site/login']];
+                $menuItems[] = ['label' => Yii::t('frontend', 'Sign up'), 'url' => ['/site/signup']];
+                $menuItems[] = ['label' => Yii::t('frontend', 'Login'), 'url' => ['/site/login']];
             } else {
                 $menuItems[] = [
-                    'label' => 'Выход (' . Yii::$app->user->identity->username . ')',
+                    'label' => Yii::t('frontend', 'Logout ({username})', ['username' => Yii::$app->user->identity->username]),
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ];
                 $menuItems[] = [
-                    'label' => 'Панель управления',
+                    'label' => Yii::t('frontend', 'Administration'),
                     'url' => ['/admin/site']
                 ];
             }

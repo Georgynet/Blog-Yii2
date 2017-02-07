@@ -22,6 +22,14 @@ return [
                         'backend' => 'backend.php'
                     ],
                 ],
+                'frontend' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@common/messages',
+                    'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'frontend' => 'frontend.php'
+                    ],
+                ],
             ],
         ],
     ],

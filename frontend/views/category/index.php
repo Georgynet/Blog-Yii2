@@ -8,12 +8,12 @@
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 
-/* @var $this yii\web\View */
+/** @var $this yii\web\View */
 /** @var $category \common\models\Category текущая категория */
 /** @var $categories \yii\data\ActiveDataProvider список категорий */
 /** @var $posts \yii\data\ActiveDataProvider список категорий */
 
-$this->title = 'Категория ' . $category->title;
+$this->title = Yii::t('frontend', 'Category') . ' ' . $category->title;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -37,7 +37,7 @@ foreach ($posts->models as $post) {
 </div>
 
 <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-    <h1>Категории</h1>
+    <h1><?= Yii::t('frontend', 'Categories') ?></h1>
     <ul>
     <?php
     foreach ($categories->models as $category) {
