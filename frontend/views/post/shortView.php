@@ -15,7 +15,7 @@ use yii\helpers\Html;
 <h1><?= $model->title ?></h1>
 
 <div class="meta">
-    <p>Автор: <?= $model->author->username ?> Дата публикации: <?= $model->publish_date ?> Категория: <?= Html::a($model->category->title, ['category/view', 'id' => $model->category->id]) ?></p>
+    <p><?= Yii::t('frontend', 'Author') ?>: <?= $model->author->username ?> <?= Yii::t('frontend', 'Publish date') ?>: <?= $model->publish_date ?> <?= Yii::t('frontend', 'Category') ?>: <?= Html::a($model->category->title, ['category/view', 'id' => $model->category->id]) ?></p>
 </div>
 
 <div class="content">
@@ -30,7 +30,7 @@ use yii\helpers\Html;
         $tags[] = Html::a($tag->title, ['tag/view', 'id' => $tag->id]);
     } ?>
 
-    Тэги: <?= implode($tags, ', ') ?>
+    <?= Yii::t('frontend', 'Tags') ?>: <?= implode($tags, ', ') ?>
 </div>
 
-<?= Html::a('Читать далее', ['post/view', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+<?= Html::a(Yii::t('frontend', 'More'), ['post/view', 'id' => $model->id], ['class' => 'btn btn-success']) ?>

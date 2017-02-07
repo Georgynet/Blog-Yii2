@@ -29,7 +29,7 @@ use yii\widgets\LinkPager;
 </div>
 
 <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-    <h1>Категории</h1>
+    <h1><?= Yii::t('frontend', 'Categories') ?></h1>
     <ul>
     <?php
     foreach ($categories->models as $category) {

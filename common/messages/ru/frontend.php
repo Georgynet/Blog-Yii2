@@ -17,13 +17,19 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Author' => 'Автор',
+    'More' => 'Читать далее',
+    'Posts' => 'Посты',
+    'Publish' => 'Опубликован',
+    'Publish date' => 'Дата публикации',
+    'Tags' => 'Тэги',
     'About' => 'О мне',
     'Administration' => 'Админ-панель',
     'Blog' => 'Блог',
+    'Categories' => 'Категории',
+    'Category' => 'Категория',
     'Contact' => 'Контакты',
     'Login' => 'Вход',
     'Logout ({username})' => 'Выход ({username})',
     'Sign up' => 'Регистрация',
-    'Categories' => 'Категории',
-    'Category' => 'Категория',
 ];
