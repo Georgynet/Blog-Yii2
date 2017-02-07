@@ -35,7 +35,7 @@ AppAsset::register($this);
                 ['label' => Yii::t('backend', 'Home'), 'url' => ['/site/index']],
             ];
             if (Yii::$app->user->isGuest) {
-                $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+                $menuItems[] = ['label' => Yii::t('frontend', 'Login'), 'url' => ['/site/login']];
             } else {
                 $menuItems[] = [
                     'label' => Yii::t('backend', 'Logout ({username})', [
