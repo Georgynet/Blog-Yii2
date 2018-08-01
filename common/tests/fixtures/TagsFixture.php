@@ -12,5 +12,5 @@ use yii\test\ActiveFixture;
 
 class TagsFixture extends ActiveFixture
 {
-    public $modelClass = 'common\models\Tags';
+    public $modelClass = 'common\models\Tag';
 }

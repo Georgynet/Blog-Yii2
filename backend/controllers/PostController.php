@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use common\models\Category;
-use common\models\Tags;
+use common\models\Tag;
 use common\models\User;
 use Yii;
 use common\models\Post;
@@ -83,7 +83,7 @@ class PostController extends Controller
             return $this->render('create', [
                 'model' => $model,
                 'category' => Category::find()->all(),
-                'tags' => Tags::find()->all(),
+                'tags' => Tag::find()->all(),
                 'authors' => User::find()->all()
             ]);
         }
@@ -104,7 +104,7 @@ class PostController extends Controller
             return $this->render('update', [
                 'model' => $model,
                 'authors' => User::find()->all(),
-                'tags' => Tags::find()->all(),
+                'tags' => Tag::find()->all(),
                 'category' => Category::find()->all()
             ]);
         }

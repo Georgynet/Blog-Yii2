@@ -6,7 +6,7 @@
  * Time: 18:01
  */
 
-/** @var $tag common\models\Tags */
+/** @var $tag common\models\Tag */
 /** @var $posts \yii\data\ActiveDataProvider */
 /** @var $categories yii\data\ActiveDataProvider */
 /** @var $postTag \common\models\TagPost */

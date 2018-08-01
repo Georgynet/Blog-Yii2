@@ -8,34 +8,28 @@ use yii\db\ActiveRecord;
 use yii\web\NotFoundHttpException;
 
 /**
- * Модель комментариев.
+ * Comment model
  *
- * @property integer $id
- * @property integer $pid идентификатор родительского комментария
+ * @property int $id
+ * @property int $pid идентификатор родительского комментария
  * @property string $title заголовок
  * @property string $content комментарий
  * @property string $publish_status статус публикации
- * @property integer $post_id идентификатор поста, к которому относится комментарий
- * @property integer $author_id идентификатор автора комментария
+ * @property int $post_id идентификатор поста, к которому относится комментарий
+ * @property int $author_id идентификатор автора комментария
  *
  * @property Post $post
  * @property User $author
  */
 class Comment extends ActiveRecord
 {
-    /**
-     * Статус комментария "На модерации"
-     */
-    const STATUS_MODERATE = 'moderate';
-    /**
-     * Статус комментария "Опубликован"
-     */
-    const STATUS_PUBLISH = 'publish';
+    public const STATUS_MODERATE = 'moderate';
+    public const STATUS_PUBLISH = 'publish';
 
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%comment}}';
     }
@@ -43,7 +37,7 @@ class Comment extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['pid', 'post_id', 'author_id'], 'integer'],
@@ -56,7 +50,7 @@ class Comment extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => Yii::t('backend', 'ID'),
@@ -69,29 +63,20 @@ class Comment extends ActiveRecord
         ];
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getPost()
+    public function getPost(): ActiveQuery
     {
-        return $this->hasOne(Post::className(), ['id' => 'post_id']);
+        return $this->hasOne(Post::class, ['id' => 'post_id']);
+    }
+
+    public function getAuthor(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['id' => 'author_id']);
     }
 
     /**
-     * @return ActiveQuery
-     */
-    public function getAuthor()
-    {
-        return $this->hasOne(User::className(), ['id' => 'author_id']);
-    }
-
-    /**
-     * Возвращает комментарий.
-     * @param int $id идентификатор комментария
      * @throws NotFoundHttpException
-     * @return Comment
      */
-    public function getComment($id)
+    public function getComment(int $id): Comment
     {
         if (
             ($model = Comment::findOne($id)) !== null &&
@@ -103,11 +88,7 @@ class Comment extends ActiveRecord
         }
     }
 
-    /**
-     * Опубликован ли комментарий.
-     * @return bool
-     */
-    protected function isPublished()
+    protected function isPublished(): bool
     {
         return $this->publish_status === self::STATUS_PUBLISH;
     }

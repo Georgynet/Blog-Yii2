@@ -9,19 +9,19 @@ use yii\db\ActiveRecord;
 use yii\web\NotFoundHttpException;
 
 /**
- * Модель тэгов.
+ * Tag model.
  *
- * @property integer $id
- * @property string $title название тэга
+ * @property int $id
+ * @property string $title
  *
  * @property TagPost[] $tagPosts
  */
-class Tags extends ActiveRecord
+class Tag extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%tags}}';
     }
@@ -29,7 +29,7 @@ class Tags extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['title'], 'required'],
@@ -40,7 +40,7 @@ class Tags extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => Yii::t('backend', 'ID'),
@@ -49,19 +49,18 @@ class Tags extends ActiveRecord
     }
 
     /**
-     * Возвращает посты, относящиеся к тегу.
+     * Return posts for tag
      * @return ActiveQuery
      */
-    public function getTagPosts()
+    public function getTagPosts(): ActiveQuery
     {
-        return $this->hasMany(TagPost::className(), ['tag_id' => 'id']);
+        return $this->hasMany(TagPost::class, ['tag_id' => 'id']);
     }
 
     /**
-     * Возвращает опубликованные посты, связанные с тэгом.
      * @return ActiveDataProvider
      */
-    public function getPublishedPosts()
+    public function getPublishedPosts(): ActiveDataProvider
     {
         return new ActiveDataProvider([
             'query' => $this->getTagPosts()
@@ -73,14 +72,11 @@ class Tags extends ActiveRecord
     }
 
     /**
-     * Возвращает модель тэга.
-     * @param int $id
-     * @return Tags
      * @throws NotFoundHttpException
      */
-    public function getTag($id)
+    public function getTag(int $id): Tag
     {
-        if (($model = Tags::findOne($id)) !== null) {
+        if (($model = Tag::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested post does not exist.');

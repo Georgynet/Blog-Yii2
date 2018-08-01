@@ -10,11 +10,7 @@ Yii 2 Blog
 
 1. Склонировать репозиторий.
 
-2. После запустить ```composer``` в консоли:
-  ```
-  composer global require "fxp/composer-asset-plugin:~1.1.2"
-  ```
-  Выполнить установку ```composer install``` или обновление зависимостей ```composer update```.
+2. Выполнить установку ```composer install``` или обновление зависимостей ```composer update```.
 
 3. Выполнить команду и следую инструкциям настроить окружение dev или prod:
   ```

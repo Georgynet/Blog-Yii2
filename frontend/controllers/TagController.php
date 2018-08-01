@@ -9,7 +9,7 @@
 namespace frontend\controllers;
 
 use common\models\Category;
-use common\models\Tags;
+use common\models\Tag;
 use Yii;
 use yii\web\Controller;
 
@@ -25,7 +25,7 @@ class TagController extends Controller
      */
     public function actionView($id)
     {
-        $tagModel = new Tags();
+        $tagModel = new Tag();
         $tag = $tagModel->getTag($id);
         $categoryModel = new Category();
         
