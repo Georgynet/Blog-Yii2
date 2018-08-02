@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
 use yii\rbac\Rule;
 
 /**
- * Класс описывающий роль пользователя.
+ * User role rule
  */
 class UserRoleRule extends Rule
 {
@@ -22,7 +22,7 @@ class UserRoleRule extends Rule
     /**
      * {@inheritdoc}
      */
-    public function execute($user, $item, $params)
+    public function execute($user, $item, $params): bool
     {
         $user = ArrayHelper::getValue($params, 'user', User::findOne($user));
 

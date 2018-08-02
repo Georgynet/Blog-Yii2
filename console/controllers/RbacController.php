@@ -12,14 +12,11 @@ use console\models\UserRoleRule;
 use yii\console\Controller;
 
 /**
- * Контроллер права доступа.
+ * Controller for generate access rules.
  */
 class RbacController extends Controller
 {
-    /**
-     * Формирование прав доступа
-     */
-    public function actionInit()
+    public function actionInit(): void
     {
         $auth = \Yii::$app->authManager;
         $auth->removeAll();
