@@ -14,16 +14,13 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
 
-/**
- * CRUD операции модели "Посты".
- */
 class PostController extends Controller
 {
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'rules' => [
                     [
                         'actions' => ['index', 'view', 'create', 'update', 'delete'],
@@ -33,7 +30,7 @@ class PostController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['post'],
                 ],
@@ -41,11 +38,7 @@ class PostController extends Controller
         ];
     }
 
-    /**
-     * Список постов.
-     * @return string
-     */
-    public function actionIndex()
+    public function actionIndex(): string
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Post::find(),
@@ -56,12 +49,7 @@ class PostController extends Controller
         ]);
     }
 
-    /**
-     * Просмотр поста.
-     * @param string $id идентификатор поста
-     * @return string
-     */
-    public function actionView($id)
+    public function actionView(int $id): string
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -69,7 +57,6 @@ class PostController extends Controller
     }
 
     /**
-     * Создание поста.
      * @return string|Response
      */
     public function actionCreate()
@@ -78,23 +65,21 @@ class PostController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            $model->author_id = Yii::$app->user->id;
-            return $this->render('create', [
-                'model' => $model,
-                'category' => Category::find()->all(),
-                'tags' => Tag::find()->all(),
-                'authors' => User::find()->all()
-            ]);
         }
+
+        $model->author_id = Yii::$app->user->id;
+        return $this->render('create', [
+            'model' => $model,
+            'category' => Category::find()->all(),
+            'tags' => Tag::find()->all(),
+            'authors' => User::find()->all()
+        ]);
     }
 
     /**
-     * Редактирование поста.
-     * @param string $id идентификатор редактируемого поста
      * @return string|Response
      */
-    public function actionUpdate($id)
+    public function actionUpdate(int $id)
     {
         $model = $this->findModel($id);
 
@@ -110,26 +95,14 @@ class PostController extends Controller
         }
     }
 
-    /**
-     * Удаление поста.
-     * @param string $id идентификатор удаляемого поста
-     * @return Response
-     */
-    public function actionDelete($id)
+    public function actionDelete(int $id): Response
     {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Post model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Post the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
+    protected function findModel(int $id): Post
     {
         if (($model = Post::findOne($id)) !== null) {
             return $model;

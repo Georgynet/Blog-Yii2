@@ -31,8 +31,5 @@
 			"type": "composer",
 			"url": "https://asset-packagist.org"
 		}
-	],
-	"scripts": {
-		"phpstan": "phpstan analyse -c phpstan.neon backend common frontend --level=1"
-	}
+	]
 }

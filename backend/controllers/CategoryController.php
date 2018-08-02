@@ -11,16 +11,13 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
 
-/**
- * CRUD операции модели "Категории".
- */
 class CategoryController extends Controller
 {
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'rules' => [
                     [
                         'actions' => ['index', 'view', 'create', 'update', 'delete'],
@@ -30,7 +27,7 @@ class CategoryController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['category'],
                 ],
@@ -38,11 +35,7 @@ class CategoryController extends Controller
         ];
     }
 
-    /**
-     * Список категорий.
-     * @return string
-     */
-    public function actionIndex()
+    public function actionIndex(): string
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Category::find(),
@@ -53,12 +46,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * Просмотр категории.
-     * @param string $id идентификатор просматриваемой категории
-     * @return string
-     */
-    public function actionView($id)
+    public function actionView(int $id): string
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -66,7 +54,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Создание категории.
      * @return string|Response
      */
     public function actionCreate()
@@ -75,51 +62,37 @@ class CategoryController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Редактирование категории.
-     * @param string $id идентификатор редактируемой категории
      * @return string|Response
      */
-    public function actionUpdate($id)
+    public function actionUpdate(int $id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
-    /**
-     * Удаление категории
-     * @param string $id идентификатор удаляемой категории
-     * @return Response
-     */
-    public function actionDelete($id)
+    public function actionDelete(int $id): Response
     {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Category model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Category the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
+    protected function findModel(int $id): Category
     {
         if (($model = Category::findOne($id)) !== null) {
             return $model;
