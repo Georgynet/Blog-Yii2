@@ -12,8 +12,6 @@ use common\models\Category;
 use common\models\Post;
 use common\tests\fixtures\PostFixture;
 use common\tests\unit\DbTestCase;
-use yii\db\ActiveRecord;
-use yii\db\Command;
 
 class CategoryTest extends DbTestCase
 {
@@ -57,7 +55,7 @@ class CategoryTest extends DbTestCase
 
     public function testGetCategories()
     {
-        $categories = $this->categoryModel->getCategories();
+        $categories = Category::findCategories();
 
         foreach($categories->models as $category) {
             $this->assertInstanceOf('common\models\Category', $category);
@@ -68,7 +66,7 @@ class CategoryTest extends DbTestCase
     {
         $this->assertInstanceOf(
             'common\models\Category',
-            $this->categoryModel->getCategory(1)
+            Category::findById(1)
         );
     }
 
@@ -79,7 +77,7 @@ class CategoryTest extends DbTestCase
     {
         $this->assertInstanceOf(
             'common\models\Category',
-            $this->categoryModel->getCategory(-1)
+            Category::findById(-1)
         );
     }
 
@@ -87,7 +85,7 @@ class CategoryTest extends DbTestCase
     {
         return [
             'post' => [
-                'class' => PostFixture::className(),
+                'class' => PostFixture::class,
                 'dataFile' => '@common/tests/unit/fixtures/data/models/post.php'
             ]
         ];

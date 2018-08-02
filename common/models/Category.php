@@ -67,7 +67,7 @@ class Category extends ActiveRecord
      *
      * @return ActiveDataProvider
      */
-    public function getCategories(): ActiveDataProvider
+    public static function findCategories(): ActiveDataProvider
     {
         return new ActiveDataProvider([
             'query' => Category::find(),
@@ -78,12 +78,12 @@ class Category extends ActiveRecord
     /**
      * @throws NotFoundHttpException
      */
-    public function getCategory(int $id): Category
+    public static function findById(int $id): Category
     {
         if (($model = Category::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested post does not exist.');
         }
+
+        throw new NotFoundHttpException('The requested post does not exist.');
     }
 }

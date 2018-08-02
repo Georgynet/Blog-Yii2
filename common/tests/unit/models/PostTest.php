@@ -64,7 +64,7 @@ class PostTest extends DbTestCase
 
     public function testGetPublishedPostSuccess()
     {
-        $post = $this->postModel->getPost(2);
+        $post = Post::findById(2);
         $this->assertInstanceOf('common\models\Post', $post);
     }
 
@@ -73,12 +73,12 @@ class PostTest extends DbTestCase
      */
     public function testGetPublishedPostFail()
     {
-        $this->postModel->getPost(1);
+        Post::findById(1);
     }
 
     public function testGetPublishedPosts()
     {
-        $posts = $this->postModel->getPublishedPosts();
+        $posts = Post::findPublished();
 
         $this->assertInstanceOf('yii\data\ActiveDataProvider', $posts);
 

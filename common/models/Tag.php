@@ -74,12 +74,12 @@ class Tag extends ActiveRecord
     /**
      * @throws NotFoundHttpException
      */
-    public function getTag(int $id): Tag
+    public static function getTag(int $id): Tag
     {
         if (($model = Tag::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested post does not exist.');
         }
+
+        throw new NotFoundHttpException('The requested post does not exist.');
     }
 }

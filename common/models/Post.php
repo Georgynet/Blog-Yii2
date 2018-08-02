@@ -128,7 +128,7 @@ class Post extends ActiveRecord
         );
     }
 
-    public function getPublishedPosts(): ActiveDataProvider
+    public static function findPublished(): ActiveDataProvider
     {
         return new ActiveDataProvider([
             'query' => Post::find()
@@ -140,16 +140,13 @@ class Post extends ActiveRecord
     /**
      * @throws NotFoundHttpException
      */
-    public function getPost(int $id): Post
+    public static function findById(int $id): Post
     {
-        if (
-            ($model = Post::findOne($id)) !== null &&
-            $model->isPublished()
-        ) {
+        if (($model = Post::findOne($id)) !== null && $model->isPublished()) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested post does not exist.');
         }
+
+        throw new NotFoundHttpException('The requested post does not exist.');
     }
 
     /**

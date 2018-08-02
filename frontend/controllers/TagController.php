@@ -13,21 +13,11 @@ use common\models\Tag;
 use Yii;
 use yii\web\Controller;
 
-/**
- * Контроллер "Тэги".
- */
 class TagController extends Controller
 {
-    /**
-     * Просмотр списка постов по тегу
-     * @param $id
-     * @return string
-     */
     public function actionView($id)
     {
-        $tagModel = new Tag();
-        $tag = $tagModel->getTag($id);
-        $categoryModel = new Category();
+        $tag = Tag::getTag($id);
         
         $posts = $tag->getPublishedPosts();
         $posts->setPagination([
@@ -37,7 +27,7 @@ class TagController extends Controller
         return $this->render('view', [
             'tag' => $tag,
             'posts' => $posts,
-            'categories' => $categoryModel->getCategories()
+            'categories' => Category::findCategories()
         ]);
     }
 }
