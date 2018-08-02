@@ -13,7 +13,6 @@ use common\models\Comment;
 use common\tests\fixtures\CommentFixture;
 use common\tests\fixtures\PostFixture;
 use common\tests\unit\DbTestCase;
-use Yii;
 use yii\web\NotFoundHttpException;
 
 class CommentTest extends DbTestCase
@@ -32,7 +31,7 @@ class CommentTest extends DbTestCase
 
     public function testGetComment()
     {
-        $comment = $this->commentModel->getComment(2);
+        $comment = Comment::findById(2);
         $this->assertInstanceOf('common\models\Comment', $comment);
     }
 
@@ -42,19 +41,19 @@ class CommentTest extends DbTestCase
     public function testGetCommentNotFound()
     {
         $this->setExpectedException('yii\web\NotFoundHttpException');
-        $this->commentModel->getComment(1);
-        $this->commentModel->getComment(10000000);
+        Comment::findById(1);
+        Comment::findById(10000000);
     }
 
     public function testGetPostByComment()
     {
-        $comment = $this->commentModel->getComment(2);
+        $comment = Comment::findById(2);
         $this->assertInstanceOf('common\models\Post', $comment->getPost()->one());
     }
 
     public function testGetAuthorByComment()
     {
-        $comment = $this->commentModel->getComment(2);
+        $comment = Comment::findById(2);
         $this->assertInstanceOf('common\models\User', $comment->getAuthor()->one());
     }
 
@@ -62,11 +61,11 @@ class CommentTest extends DbTestCase
     {
         return [
             'post' => [
-                'class' => PostFixture::className(),
+                'class' => PostFixture::class,
                 'dataFile' => '@common/tests/unit/fixtures/data/models/post.php'
             ],
             'comment' => [
-                'class' => CommentFixture::className(),
+                'class' => CommentFixture::class,
                 'dataFile' => '@common/tests/unit/fixtures/data/models/comment.php'
             ],
         ];

@@ -74,7 +74,7 @@ class Tag extends ActiveRecord
     /**
      * @throws NotFoundHttpException
      */
-    public static function getTag(int $id): Tag
+    public static function findById(int $id): Tag
     {
         if (($model = Tag::findOne($id)) !== null) {
             return $model;

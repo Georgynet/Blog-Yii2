@@ -17,7 +17,7 @@ class TagController extends Controller
 {
     public function actionView($id)
     {
-        $tag = Tag::getTag($id);
+        $tag = Tag::findById($id);
         
         $posts = $tag->getPublishedPosts();
         $posts->setPagination([

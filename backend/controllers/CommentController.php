@@ -49,7 +49,7 @@ class CommentController extends Controller
     public function actionView(int $id): string
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => Comment::findById($id, true),
         ]);
     }
 
@@ -74,7 +74,7 @@ class CommentController extends Controller
      */
     public function actionUpdate(int $id)
     {
-        $model = $this->findModel($id);
+        $model = Comment::findById($id, true);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -87,17 +87,8 @@ class CommentController extends Controller
 
     public function actionDelete(int $id): Response
     {
-        $this->findModel($id)->delete();
+        Comment::findById($id, true)->delete();
 
         return $this->redirect(['index']);
-    }
-
-    protected function findModel(int $id): Comment
-    {
-        if (($model = Comment::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
     }
 }

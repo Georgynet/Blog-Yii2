@@ -140,10 +140,12 @@ class Post extends ActiveRecord
     /**
      * @throws NotFoundHttpException
      */
-    public static function findById(int $id): Post
+    public static function findById(int $id, bool $ignorePublishStatus = false): Post
     {
-        if (($model = Post::findOne($id)) !== null && $model->isPublished()) {
-            return $model;
+        if (($model = Post::findOne($id)) !== null) {
+            if ($model->isPublished() || $ignorePublishStatus) {
+                return $model;
+            }
         }
 
         throw new NotFoundHttpException('The requested post does not exist.');

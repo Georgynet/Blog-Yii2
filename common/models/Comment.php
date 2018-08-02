@@ -76,16 +76,15 @@ class Comment extends ActiveRecord
     /**
      * @throws NotFoundHttpException
      */
-    public function getComment(int $id): Comment
+    public static function findById(int $id, bool $ignorePublishStatus = false): Comment
     {
-        if (
-            ($model = Comment::findOne($id)) !== null &&
-            $model->isPublished()
-        ) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested post does not exist.');
+        if (($model = Comment::findOne($id)) !== null) {
+            if ($model->isPublished() || $ignorePublishStatus){
+                return $model;
+            }
         }
+
+        throw new NotFoundHttpException('The requested post does not exist.');
     }
 
     protected function isPublished(): bool
