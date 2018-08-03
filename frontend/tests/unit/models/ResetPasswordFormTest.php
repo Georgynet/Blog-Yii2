@@ -8,9 +8,8 @@ use frontend\models\ResetPasswordForm;
 
 class ResetPasswordFormTest extends DbTestCase
 {
-
     /**
-     * @expectedException yii\base\InvalidParamException
+     * @expectedException \InvalidArgumentException
      */
     public function testResetWrongToken()
     {
@@ -18,7 +17,7 @@ class ResetPasswordFormTest extends DbTestCase
     }
 
     /**
-     * @expectedException yii\base\InvalidParamException
+     * @expectedException \InvalidArgumentException
      */
     public function testResetEmptyToken()
     {
@@ -35,7 +34,7 @@ class ResetPasswordFormTest extends DbTestCase
     {
         return [
             'user' => [
-                'class' => UserFixture::className(),
+                'class' => UserFixture::class,
                 'dataFile' => '@frontend/tests/unit/fixtures/data/models/user.php'
             ],
         ];

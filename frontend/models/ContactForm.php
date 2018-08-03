@@ -22,11 +22,8 @@ class ContactForm extends Model
     public function rules()
     {
         return [
-            // name, email, subject and body are required
             [['name', 'email', 'subject', 'body'], 'required'],
-            // email has to be a valid email address
             ['email', 'email'],
-            // verifyCode needs to be entered correctly
             ['verifyCode', 'captcha'],
         ];
     }
@@ -34,7 +31,7 @@ class ContactForm extends Model
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'name' => Yii::t('frontend', 'Name'),
@@ -51,7 +48,7 @@ class ContactForm extends Model
      * @param  string  $email the target email address
      * @return boolean whether the email was sent
      */
-    public function sendEmail($email)
+    public function sendEmail(string $email): bool
     {
         return Yii::$app->mailer->compose()
             ->setTo($email)

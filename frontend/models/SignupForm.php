@@ -3,7 +3,6 @@ namespace frontend\models;
 
 use common\models\User;
 use yii\base\Model;
-use Yii;
 
 /**
  * Signup form
@@ -17,7 +16,7 @@ class SignupForm extends Model
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             ['username', 'filter', 'filter' => 'trim'],
@@ -35,12 +34,7 @@ class SignupForm extends Model
         ];
     }
 
-    /**
-     * Signs user up.
-     *
-     * @return User|null the saved model or null if saving fails
-     */
-    public function signup()
+    public function signup(): ?User
     {
         if ($this->validate()) {
             $user = new User();
