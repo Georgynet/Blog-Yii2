@@ -1,18 +1,15 @@
+namespace: frontend\tests
+actor_suffix: Tester
 paths:
     tests: tests
-    log: tests/_log
+    output: tests/_output
     data: tests/_data
-    helpers: tests/_helpers
+    support: tests/_support
 settings:
     bootstrap: _bootstrap.php
-    suite_class: \PHPUnit_Framework_TestSuite
     colors: true
     memory_limit: 1024M
-    log: true
 modules:
     config:
-        Db:
-            dsn: ''
-            user: ''
-            password: ''
-            dump: tests/_data/dump.sql
+        Yii2:
+            configFile: 'config/codeception-local.php'

@@ -1,31 +1,12 @@
 <?php
-
 namespace frontend\tests\unit\models;
 
 use Yii;
-use frontend\tests\unit\TestCase;
 use frontend\models\ContactForm;
 
-class ContactFormTest extends TestCase
+class ContactFormTest extends \Codeception\Test\Unit
 {
-
-    use \Codeception\Specify;
-
-    protected function setUp()
-    {
-        parent::setUp();
-        Yii::$app->mailer->fileTransportCallback = function ($mailer, $message) {
-            return 'testing_message.eml';
-        };
-    }
-
-    protected function tearDown()
-    {
-        unlink($this->getMessageFile());
-        parent::tearDown();
-    }
-
-    public function testContact()
+    public function testSendEmail()
     {
         $model = new ContactForm();
 
@@ -36,24 +17,16 @@ class ContactFormTest extends TestCase
             'body' => 'body of current message',
         ];
 
-        $model->sendEmail('admin@example.com');
+        expect_that($model->sendEmail('admin@example.com'));
 
-        $this->specify('email should be send', function () {
-            expect('email file should exist', file_exists($this->getMessageFile()))->true();
-        });
+        // using Yii2 module actions to check email was sent
+        $this->tester->seeEmailIsSent();
 
-        $this->specify('message should contain correct data', function () use ($model) {
-            $emailMessage = file_get_contents($this->getMessageFile());
-
-            expect('email should contain user name', $emailMessage)->contains($model->name);
-            expect('email should contain sender email', $emailMessage)->contains($model->email);
-            expect('email should contain subject', $emailMessage)->contains($model->subject);
-            expect('email should contain body', $emailMessage)->contains($model->body);
-        });
-    }
-
-    private function getMessageFile()
-    {
-        return Yii::getAlias(Yii::$app->mailer->fileTransportPath) . '/testing_message.eml';
+        $emailMessage = $this->tester->grabLastSentEmail();
+        expect('valid email is sent', $emailMessage)->isInstanceOf('yii\mail\MessageInterface');
+        expect($emailMessage->getTo())->hasKey('admin@example.com');
+        expect($emailMessage->getFrom())->hasKey('tester@example.com');
+        expect($emailMessage->getSubject())->equals('very important letter subject');
+        expect($emailMessage->toString())->contains('body of current message');
     }
 }
