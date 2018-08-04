@@ -1,16 +1,26 @@
 <?php
-
 namespace frontend\tests\unit\models;
 
-use frontend\tests\unit\DbTestCase;
-use common\tests\fixtures\UserFixture;
-use Codeception\Specify;
+use common\fixtures\UserFixture;
 use frontend\models\SignupForm;
 
-class SignupFormTest extends DbTestCase
+class SignupFormTest extends \Codeception\Test\Unit
 {
+    /**
+     * @var \frontend\tests\UnitTester
+     */
+    protected $tester;
 
-    use Specify;
+
+    public function _before()
+    {
+        $this->tester->haveFixtures([
+            'user' => [
+                'class' => UserFixture::class,
+                'dataFile' => codecept_data_dir() . 'user.php'
+            ]
+        ]);
+    }
 
     public function testCorrectSignup()
     {
@@ -22,11 +32,11 @@ class SignupFormTest extends DbTestCase
 
         $user = $model->signup();
 
-        $this->assertInstanceOf('common\models\User', $user, 'user should be valid');
+        expect($user)->isInstanceOf('common\models\User');
 
-        expect('username should be correct', $user->username)->equals('some_username');
-        expect('email should be correct', $user->email)->equals('some_email@example.com');
-        expect('password should be correct', $user->validatePassword('some_password'))->true();
+        expect($user->username)->equals('some_username');
+        expect($user->email)->equals('some_email@example.com');
+        expect($user->validatePassword('some_password'))->true();
     }
 
     public function testNotCorrectSignup()
@@ -37,17 +47,13 @@ class SignupFormTest extends DbTestCase
             'password' => 'some_password',
         ]);
 
-        expect('username and email are in use, user should not be created', $model->signup())->null();
-    }
+        expect_not($model->signup());
+        expect_that($model->getErrors('username'));
+        expect_that($model->getErrors('email'));
 
-    public function fixtures()
-    {
-        return [
-            'user' => [
-                'class' => UserFixture::className(),
-                'dataFile' => '@frontend/tests/unit/fixtures/data/models/user.php',
-            ],
-        ];
+        expect($model->getFirstError('username'))
+            ->equals('This username has already been taken.');
+        expect($model->getFirstError('email'))
+            ->equals('This email address has already been taken.');
     }
-
 }

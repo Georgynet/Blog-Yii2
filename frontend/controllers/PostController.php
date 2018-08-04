@@ -10,16 +10,13 @@ use yii\helpers\Url;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 
-/**
- * Контролеры "Постов".
- */
 class PostController extends Controller
 {
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['post'],
                 ],
@@ -27,36 +24,23 @@ class PostController extends Controller
         ];
     }
 
-    /**
-     * Список постов.
-     * @return string
-     */
-    public function actionIndex()
+    public function actionIndex(): string
     {
-        $post = new Post();
-        $category = new Category();
-
-        $posts = $post->getPublishedPosts();
+        $posts = Post::findPublished();
         $posts->setPagination([
             'pageSize' => Yii::$app->params['pageSize']
         ]);
 
         return $this->render('index', [
             'posts' => $posts,
-            'categories' => $category->getCategories()
+            'categories' => Category::findCategories()
         ]);
     }
 
-    /**
-     * Просмотр поста.
-     * @param string $id идентификатор поста
-     * @return string
-     */
-    public function actionView($id)
+    public function actionView(int $id): string
     {
-        $post = new Post();
         return $this->render('view', [
-            'model' => $post->getPost($id),
+            'model' => Post::findById($id),
             'commentForm' => new CommentForm(Url::to(['comment/add', 'id' => $id])),
         ]);
     }

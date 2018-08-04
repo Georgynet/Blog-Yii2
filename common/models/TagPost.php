@@ -7,20 +7,20 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
- * Модель для связи тэг-пост
+ * Bridge collection tag-post.
  *
- * @property integer $tag_id идентификатор тэга
- * @property integer $post_id идентификатор поста, к которому принадлежит тэг
+ * @property int $tag_id
+ * @property int $post_id
  *
- * @property Post $post пост
- * @property Tags $tag тэг
+ * @property Post $post
+ * @property Tag $tag
  */
 class TagPost extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%tag_post}}';
     }
@@ -28,7 +28,7 @@ class TagPost extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['tag_id', 'post_id'], 'integer']
@@ -38,7 +38,7 @@ class TagPost extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => Yii::t('backend', 'ID'),
@@ -47,19 +47,13 @@ class TagPost extends ActiveRecord
         ];
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getPost()
+    public function getPost(): ActiveQuery
     {
-        return $this->hasOne(Post::className(), ['id' => 'post_id']);
+        return $this->hasOne(Post::class, ['id' => 'post_id']);
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getTag()
+    public function getTag(): ActiveQuery
     {
-        return $this->hasOne(Tags::className(), ['id' => 'tag_id']);
+        return $this->hasOne(Tag::class, ['id' => 'tag_id']);
     }
 }

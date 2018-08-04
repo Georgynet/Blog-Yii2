@@ -6,7 +6,6 @@
  * Time: 9:26
  */
 use common\models\Comment;
-use common\models\TagPost;
 use yii\helpers\Html;
 
 /* @var $model common\models\Post */

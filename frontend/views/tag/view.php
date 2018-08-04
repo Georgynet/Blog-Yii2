@@ -6,7 +6,7 @@
  * Time: 18:01
  */
 
-/** @var $tag common\models\Tags */
+/** @var $tag common\models\Tag */
 /** @var $posts \yii\data\ActiveDataProvider */
 /** @var $categories yii\data\ActiveDataProvider */
 /** @var $postTag \common\models\TagPost */
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="col-sm-8 post-index">
 
-    <h1>Тэг: <?= Html::encode($this->title) ?></h1>
+    <h1><?= Yii::t('frontend', 'Tag') ?>: <?= Html::encode($this->title) ?></h1>
 
     <?php
     foreach ($posts->models as $postTag) {
@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-    <h1>Категории</h1>
+    <h1><?= Yii::t('frontend', 'Categories') ?></h1>
     <ul>
         <?php
         foreach ($categories->models as $tagItem) {

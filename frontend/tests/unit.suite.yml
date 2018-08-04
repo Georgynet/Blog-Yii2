@@ -1,8 +1,7 @@
-# Codeception Test Suite Configuration
-
-# suite for unit (internal) tests.
-# RUN `build` COMMAND AFTER ADDING/REMOVING MODULES.
-
-class_name: CodeGuy
+suite_namespace: frontend\tests\unit
+actor: UnitTester
 modules:
-    enabled: [CodeHelper]
+    enabled:
+        - Yii2:
+            part: [orm, email, fixtures]
+        - Asserts

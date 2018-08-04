@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Tags */
+/* @var $model common\models\Tag */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Тэги', 'url' => ['index']];

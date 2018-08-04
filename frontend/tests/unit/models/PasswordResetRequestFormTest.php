@@ -3,86 +3,57 @@
 namespace frontend\tests\unit\models;
 
 use Yii;
-use frontend\tests\unit\DbTestCase;
 use frontend\models\PasswordResetRequestForm;
-use common\tests\fixtures\UserFixture;
+use common\fixtures\UserFixture as UserFixture;
 use common\models\User;
-use Codeception\Specify;
 
-class PasswordResetRequestFormTest extends DbTestCase
+class PasswordResetRequestFormTest extends \Codeception\Test\Unit
 {
-    use Specify;
+    /**
+     * @var \frontend\tests\UnitTester
+     */
+    protected $tester;
 
-    protected function setUp()
+
+    public function _before()
     {
-        parent::setUp();
-
-        Yii::$app->mailer->fileTransportCallback = function ($mailer, $message) {
-            return 'testing_message.eml';
-        };
+        $this->tester->haveFixtures([
+            'user' => [
+                'class' => UserFixture::class,
+                'dataFile' => codecept_data_dir() . 'user.php'
+            ]
+        ]);
     }
 
-    protected function tearDown()
-    {
-        @unlink($this->getMessageFile());
-
-        parent::tearDown();
-    }
-
-    public function testSendEmailWrongUser()
-    {
-        $this->specify('no user with such email, message should not be send', function () {
-
-            $model = new PasswordResetRequestForm();
-            $model->email = 'not-existing-email@example.com';
-
-            expect('email not send', $model->sendEmail())->false();
-
-        });
-
-        $this->specify('user is not active, message should not be send', function () {
-
-            $model = new PasswordResetRequestForm();
-            $model->email = $this->user[1]['email'];
-
-            expect('email not send', $model->sendEmail())->false();
-
-        });
-    }
-
-    public function testSendEmailCorrectUser()
+    public function testSendMessageWithWrongEmailAddress()
     {
         $model = new PasswordResetRequestForm();
-        $model->email = $this->user[0]['email'];
-        $user = User::findOne(['password_reset_token' => $this->user[0]['password_reset_token']]);
-
-        expect('email sent', $model->sendEmail())->true();
-        expect('user has valid token', $user->password_reset_token)->notNull();
-
-        $this->specify('message has correct format', function () use ($model) {
-
-            expect('message file exists', file_exists($this->getMessageFile()))->true();
-
-            $message = file_get_contents($this->getMessageFile());
-            expect('message "from" is correct', $message)->contains(Yii::$app->params['supportEmail']);
-            expect('message "to" is correct', $message)->contains($model->email);
-
-        });
+        $model->email = 'not-existing-email@example.com';
+        expect_not($model->sendEmail());
     }
 
-    public function fixtures()
+    public function testNotSendEmailsToInactiveUser()
     {
-        return [
-            'user' => [
-                'class' => UserFixture::className(),
-                'dataFile' => '@frontend/tests/unit/fixtures/data/models/user.php'
-            ],
-        ];
+        $user = $this->tester->grabFixture('user', 1);
+        $model = new PasswordResetRequestForm();
+        $model->email = $user['email'];
+        expect_not($model->sendEmail());
     }
 
-    private function getMessageFile()
+    public function testSendEmailSuccessfully()
     {
-        return Yii::getAlias(Yii::$app->mailer->fileTransportPath) . '/testing_message.eml';
-    }
+        $userFixture = $this->tester->grabFixture('user', 0);
+        
+        $model = new PasswordResetRequestForm();
+        $model->email = $userFixture['email'];
+        $user = User::findOne(['password_reset_token' => $userFixture['password_reset_token']]);
 
+        expect_that($model->sendEmail());
+        expect_that($user->password_reset_token);
+
+        $emailMessage = $this->tester->grabLastSentEmail();
+        expect('valid email is sent', $emailMessage)->isInstanceOf('yii\mail\MessageInterface');
+        expect($emailMessage->getTo())->hasKey($model->email);
+        expect($emailMessage->getFrom())->hasKey(Yii::$app->params['supportEmail']);
+    }
 }

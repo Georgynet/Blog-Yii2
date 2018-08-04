@@ -10,16 +10,16 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 
 /**
- * Модель постов.
+ * Post model.
  *
  * @property string $id
- * @property string $title заголовок
- * @property string $anons анонс
- * @property string $content контент
- * @property string $category_id категория
- * @property string $author_id автор
- * @property string $publish_status статус публикации
- * @property string $publish_date дата публикации
+ * @property string $title
+ * @property string $anons
+ * @property string $content
+ * @property string $category_id
+ * @property string $author_id
+ * @property string $publish_status
+ * @property string $publish_date
  *
  * @property User $author
  * @property Category $category
@@ -27,17 +27,11 @@ use yii\web\NotFoundHttpException;
  */
 class Post extends ActiveRecord
 {
-    /**
-     * Статус поста: опубликованн.
-     */
-    const STATUS_PUBLISH = 'publish';
-    /**
-     * Статус поста: черновие.
-     */
-    const STATUS_DRAFT = 'draft';
+    public const STATUS_PUBLISH = 'publish';
+    public const STATUS_DRAFT = 'draft';
 
     /**
-     * Список тэгов, закреплённых за постом.
+     * Tag list
      * @var array
      */
     protected $tags = [];
@@ -45,7 +39,7 @@ class Post extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%post}}';
     }
@@ -53,7 +47,7 @@ class Post extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['title'], 'required'],
@@ -67,7 +61,7 @@ class Post extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => Yii::t('backend', 'ID'),
@@ -84,35 +78,22 @@ class Post extends ActiveRecord
         ];
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getAuthor()
+    public function getAuthor(): ActiveQuery
     {
-        return $this->hasOne(User::className(), ['id' => 'author_id']);
+        return $this->hasOne(User::class, ['id' => 'author_id']);
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getCategory()
+    public function getCategory(): ActiveQuery
     {
-        return $this->hasOne(Category::className(), ['id' => 'category_id']);
+        return $this->hasOne(Category::class, ['id' => 'category_id']);
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getComments()
+    public function getComments(): ActiveQuery
     {
-        return $this->hasMany(Comment::className(), ['post_id' => 'id']);
+        return $this->hasMany(Comment::class, ['post_id' => 'id']);
     }
 
-    /**
-     * Возвращает опубликованные комментарии
-     * @return ActiveDataProvider
-     */
-    public function getPublishedComments()
+    public function getPublishedComments(): ActiveDataProvider
     {
         return new ActiveDataProvider([
             'query' => $this->getComments()
@@ -120,19 +101,15 @@ class Post extends ActiveRecord
         ]);
     }
 
-    /**
-     * Устанавлиает тэги поста.
-     * @param $tagsId
-     */
-    public function setTags($tagsId)
+    public function setTags(array $tagsId): void
     {
-        $this->tags = (array) $tagsId;
+        $this->tags = $tagsId;
     }
 
     /**
-     * Возвращает массив идентификаторов тэгов.
+     * Return tag ids
      */
-    public function getTags()
+    public function getTags(): array
     {
         return ArrayHelper::getColumn(
             $this->getTagPost()->all(), 'tag_id'
@@ -140,21 +117,18 @@ class Post extends ActiveRecord
     }
 
     /**
-     * Возвращает тэги поста.
+     * Return tags for post
+     *
      * @return ActiveQuery
      */
-    public function getTagPost()
+    public function getTagPost(): ActiveQuery
     {
         return $this->hasMany(
-            TagPost::className(), ['post_id' => 'id']
+            TagPost::class, ['post_id' => 'id']
         );
     }
 
-    /**
-     * Возвращает опубликованные посты
-     * @return ActiveDataProvider
-     */
-    public function getPublishedPosts()
+    public static function findPublished(): ActiveDataProvider
     {
         return new ActiveDataProvider([
             'query' => Post::find()
@@ -164,21 +138,17 @@ class Post extends ActiveRecord
     }
 
     /**
-     * Возвращает модель поста.
-     * @param int $id
-     * @throws NotFoundHttpException в случае, когда пост не найден или не опубликован
-     * @return Post
+     * @throws NotFoundHttpException
      */
-    public function getPost($id)
+    public static function findById(int $id, bool $ignorePublishStatus = false): Post
     {
-        if (
-            ($model = Post::findOne($id)) !== null &&
-            $model->isPublished()
-        ) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested post does not exist.');
+        if (($model = Post::findOne($id)) !== null) {
+            if ($model->isPublished() || $ignorePublishStatus) {
+                return $model;
+            }
         }
+
+        throw new NotFoundHttpException('The requested post does not exist.');
     }
 
     /**
@@ -200,11 +170,7 @@ class Post extends ActiveRecord
         parent::afterSave($insert, $changedAttributes);
     }
 
-    /**
-     * Опубликован ли пост.
-     * @return bool
-     */
-    protected function isPublished()
+    protected function isPublished(): bool
     {
         return $this->publish_status === self::STATUS_PUBLISH;
     }

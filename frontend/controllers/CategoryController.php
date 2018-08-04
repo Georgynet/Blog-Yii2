@@ -12,15 +12,11 @@ use common\models\Category;
 use Yii;
 use yii\web\Controller;
 
-/**
- * Контроллеры "Категорий".
- */
 class CategoryController extends Controller
 {
-    public function actionView($id)
+    public function actionView(int $id): string
     {
-        $categoryModel = new Category();
-        $category = $categoryModel->getCategory($id);
+        $category = Category::findById($id);
 
         $posts = $category->getPosts();
         $posts->setPagination([
@@ -30,7 +26,7 @@ class CategoryController extends Controller
         return $this->render('index', [
             'category' => $category,
             'posts' => $posts,
-            'categories' => $categoryModel->getCategories()
+            'categories' => Category::findCategories()
         ]);
     }
 } 

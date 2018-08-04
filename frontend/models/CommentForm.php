@@ -8,9 +8,7 @@
 
 namespace frontend\models;
 
-
 use common\models\Comment;
-use Yii;
 use yii\base\Model;
 
 class CommentForm extends Model
@@ -42,7 +40,7 @@ class CommentForm extends Model
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['pid', 'post_id'], 'integer'],
@@ -51,7 +49,7 @@ class CommentForm extends Model
         ];
     }
 
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'title' => 'Заголовок',
@@ -59,13 +57,7 @@ class CommentForm extends Model
         ];
     }
 
-    /**
-     * Сохраняет комментарий.
-     * @param Comment $comment модель комментария
-     * @param array $data данные пришедшие из формы
-     * @return bool
-     */
-    public function save(Comment $comment, array $data)
+    public function save(Comment $comment, array $data): bool
     {
         $isLoad = $comment->load([
             'pid' => $data['pid'],

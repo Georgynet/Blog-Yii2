@@ -14,7 +14,7 @@ class PasswordResetRequestForm extends Model
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             ['email', 'filter', 'filter' => 'trim'],
@@ -33,7 +33,7 @@ class PasswordResetRequestForm extends Model
      *
      * @return boolean whether the email was send
      */
-    public function sendEmail()
+    public function sendEmail(): bool
     {
         /* @var $user User */
         $user = User::findOne([

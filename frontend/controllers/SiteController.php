@@ -7,11 +7,11 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
-use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\Response;
 
 /**
  * Site controller
@@ -21,11 +21,11 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'only' => ['logout', 'signup'],
                 'rules' => [
                     [
@@ -41,7 +41,7 @@ class SiteController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'logout' => ['post'],
                 ],
@@ -52,7 +52,7 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
-    public function actions()
+    public function actions(): array
     {
         return [
             'error' => [
@@ -65,11 +65,14 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex()
+    public function actionIndex(): string
     {
         return $this->render('index');
     }
 
+    /**
+     * @return string|Response
+     */
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
@@ -79,20 +82,23 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('login', [
+            'model' => $model,
+        ]);
     }
 
-    public function actionLogout()
+    public function actionLogout(): Response
     {
         Yii::$app->user->logout();
 
         return $this->goHome();
     }
 
+    /**
+     * @return string|Response
+     */
     public function actionContact()
     {
         $model = new ContactForm();
@@ -104,18 +110,21 @@ class SiteController extends Controller
             }
 
             return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('contact', [
+            'model' => $model,
+        ]);
     }
 
-    public function actionAbout()
+    public function actionAbout(): string
     {
         return $this->render('about');
     }
 
+    /**
+     * @return string|Response
+     */
     public function actionSignup()
     {
         $model = new SignupForm();
@@ -132,6 +141,9 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @return string|Response
+     */
     public function actionRequestPasswordReset()
     {
         $model = new PasswordResetRequestForm();
@@ -140,9 +152,9 @@ class SiteController extends Controller
                 Yii::$app->getSession()->setFlash('success', 'Check your email for further instructions.');
 
                 return $this->goHome();
-            } else {
-                Yii::$app->getSession()->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
             }
+
+            Yii::$app->getSession()->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
         }
 
         return $this->render('requestPasswordResetToken', [
@@ -150,11 +162,14 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionResetPassword($token)
+    /**
+     * @return string|Response
+     */
+    public function actionResetPassword(string $token)
     {
         try {
             $model = new ResetPasswordForm($token);
-        } catch (InvalidParamException $e) {
+        } catch (\InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
 

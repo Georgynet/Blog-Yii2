@@ -8,18 +8,18 @@ use yii\db\ActiveRecord;
 use yii\web\NotFoundHttpException;
 
 /**
- * Модель категорий.
+ * Category model.
  *
  * @property string $id
- * @property string $title заголовок
- * @property Post[] $posts посты, относящиеся к категории
+ * @property string $title
+ * @property Post[] $posts
  */
 class Category extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%category}}';
     }
@@ -27,7 +27,7 @@ class Category extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['title'], 'required'],
@@ -38,7 +38,7 @@ class Category extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => Yii::t('backend', 'ID'),
@@ -47,10 +47,11 @@ class Category extends ActiveRecord
     }
 
     /**
-     * Возвращает список постов принадлежащих категории.
+     * Return posts for a category
+     *
      * @return ActiveDataProvider
      */
-    public function getPosts()
+    public function getPosts(): ActiveDataProvider
     {
         return new ActiveDataProvider([
             'query' => Post::find()
@@ -62,10 +63,11 @@ class Category extends ActiveRecord
     }
 
     /**
-     * Возвращает список категорий
+     * Return category list
+     *
      * @return ActiveDataProvider
      */
-    public function getCategories()
+    public static function findCategories(): ActiveDataProvider
     {
         return new ActiveDataProvider([
             'query' => Category::find(),
@@ -74,17 +76,14 @@ class Category extends ActiveRecord
     }
 
     /**
-     * Возвращает модель категории.
-     * @param int $id идентификатор категории
-     * @throws NotFoundHttpException в случае, когда категория не найдена
-     * @return Category
+     * @throws NotFoundHttpException
      */
-    public function getCategory($id)
+    public static function findById(int $id): Category
     {
         if (($model = Category::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested post does not exist.');
         }
+
+        throw new NotFoundHttpException('The requested post does not exist.');
     }
 }
