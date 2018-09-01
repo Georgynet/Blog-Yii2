@@ -1,7 +1,7 @@
 Yii 2 Blog
 ===================================
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Georgynet/Blog-Yii2/badges/quality-score.png?b=refactor)](https://scrutinizer-ci.com/g/Georgynet/Blog-Yii2/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Georgynet/Blog-Yii2/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Georgynet/Blog-Yii2/?branch=master)
 [![Code Climate](https://codeclimate.com/github/Georgynet/Blog-Yii2/badges/gpa.svg)](https://codeclimate.com/github/Georgynet/Blog-Yii2)
 
 Install Blog on Yii Framework 2
