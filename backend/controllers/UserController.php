@@ -46,6 +46,9 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * @throws NotFoundHttpException
+     */
     public function actionView(int $id): string
     {
         return $this->render('view', [
@@ -71,6 +74,7 @@ class UserController extends Controller
 
     /**
      * @return string|Response
+     * @throws NotFoundHttpException
      */
     public function actionUpdate(int $id)
     {

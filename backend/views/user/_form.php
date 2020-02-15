@@ -1,5 +1,6 @@
 <?php
 
+use common\models\User;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -17,6 +18,16 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'email')->textInput() ?>
 
     <?= $form->field($model, 'new_password')->passwordInput() ?>
+
+    <?= $form->field($model, 'status')->dropDownList([
+        User::STATUS_DELETED => 'Inactive',
+        User::STATUS_ACTIVE => 'Active'
+    ]) ?>
+
+    <?= $form->field($model, 'role')->dropDownList([
+        User::ROLE_USER => 'User',
+        User::ROLE_ADMIN => 'Administrator',
+    ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

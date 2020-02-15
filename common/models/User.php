@@ -24,10 +24,13 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    private const STATUS_DELETED = 0;
+    public const STATUS_DELETED = 0;
     public const STATUS_ACTIVE = 10;
     public const ROLE_USER = 10;
     public const ROLE_ADMIN = 100;
+
+    /** @var string|null */
+    public $new_password;
 
     /**
      * @inheritdoc
@@ -62,7 +65,7 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
 
             ['role', 'default', 'value' => self::ROLE_USER],
-            ['role', 'in', 'range' => [self::ROLE_USER]],
+            ['role', 'in', 'range' => [self::ROLE_USER, self::ROLE_ADMIN]],
         ];
     }
 
@@ -208,25 +211,22 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Return empty value for a user edit form
-     *
-     * @return null
-     */
-    public function getNew_Password()
-    {
-        return null;
-    }
-
-    /**
-     * Set new password
-     *
-     * @param string $newPassword
+     * @inheritdoc
      * @throws \yii\base\Exception
      */
-    public function setNew_password(string $newPassword): void
+    public function beforeSave($insert)
     {
-        if (strlen($newPassword) !== 0) {
-            $this->setPassword($newPassword);
+        if (!empty($this->new_password)) {
+            $this->setPassword($this->new_password);
         }
+
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->auth_key = \Yii::$app->security->generateRandomString();
+            }
+            return true;
+        }
+
+        return false;
     }
 }
