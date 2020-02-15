@@ -32,3 +32,6 @@ phpunit.phar
 /phpunit.xml
 
 tests/_output/*
+
+# docker tmp dir
+/docker
