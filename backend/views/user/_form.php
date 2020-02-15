@@ -20,13 +20,13 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'new_password')->passwordInput() ?>
 
     <?= $form->field($model, 'status')->dropDownList([
-        User::STATUS_DELETED => 'Inactive',
-        User::STATUS_ACTIVE => 'Active'
+        User::STATUS_DELETED => Yii::t('backend', 'Inactive'),
+        User::STATUS_ACTIVE => Yii::t('backend', 'Active'),
     ]) ?>
 
     <?= $form->field($model, 'role')->dropDownList([
-        User::ROLE_USER => 'User',
-        User::ROLE_ADMIN => 'Administrator',
+        User::ROLE_USER => Yii::t('backend', 'User'),
+        User::ROLE_ADMIN => Yii::t('backend', 'Administrator'),
     ]) ?>
 
     <div class="form-group">
