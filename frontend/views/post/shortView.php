@@ -30,7 +30,7 @@ use yii\helpers\Html;
         $tags[] = Html::a($tag->title, ['tag/view', 'id' => $tag->id]);
     } ?>
 
-    <?= Yii::t('frontend', 'Tags') ?>: <?= implode($tags, ', ') ?>
+    <?= Yii::t('frontend', 'Tags') ?>: <?= implode(', ', $tags) ?>
 </div>
 
 <?= Html::a(Yii::t('frontend', 'More'), ['post/view', 'id' => $model->id], ['class' => 'btn btn-success']) ?>

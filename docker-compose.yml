@@ -1,7 +1,7 @@
 version: '3'
 services:
   php:
-    image: yiisoftware/yii2-php:7.2-apache
+    image: yiisoftware/yii2-php:7.4-apache
     volumes:
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
       - ./:/app:delegated
@@ -11,7 +11,7 @@ services:
     environment:
       PHP_ENABLE_XDEBUG: 1
   db_mysql:
-    image: mysql
+    image: mysql:5.7
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: root

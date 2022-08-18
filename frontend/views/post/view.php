@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
         $tags[] = Html::a($tag->title, ['tag/view', 'id' => $tag->id]);
     } ?>
 
-    <?= Yii::t('frontend', 'Tags') ?>: <?= implode($tags, ', ') ?>
+    <?= Yii::t('frontend', 'Tags') ?>: <?= implode(', ', $tags) ?>
 </div>
 
 <div class="comments">
