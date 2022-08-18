@@ -1,15 +1,18 @@
-version: '3'
+version: '3.6'
 services:
   php:
-    image: yiisoftware/yii2-php:7.4-apache
+    build:
+      context: ./config/docker
+      dockerfile: Dockerfile
     volumes:
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
-      - ./:/app:delegated
+      - ./:/app
       - ./config/vhosts:/etc/apache2/sites-available:delegated
     ports:
       - '80:80'
     environment:
       PHP_ENABLE_XDEBUG: 1
+
   db_mysql:
     image: mysql:5.7
     command: --default-authentication-plugin=mysql_native_password
@@ -17,6 +20,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - ./docker/mysql:/var/lib/mysql
+
   adminer:
     image: adminer
     ports:

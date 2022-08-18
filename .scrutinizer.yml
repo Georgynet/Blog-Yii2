@@ -6,3 +6,8 @@ build:
       tests:
         override:
           - php-scrutinizer-run
+checks:
+  php: true
+filter: {  }
+coding_style:
+  php: {  }
